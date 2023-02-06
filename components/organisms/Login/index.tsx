@@ -6,6 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PasswordIcon from '@mui/icons-material/Password';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import WarningIcon from '@mui/icons-material/Warning';
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 // @ts-ignore
 import InputMask from 'react-input-mask';
@@ -19,6 +20,8 @@ export const LoginComponents = ({ theme }: Props) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [corError, setCorError] = useState<boolean>(false);
+  const [errMessage, setErrMessage] = useState<string>('');
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,8 +58,13 @@ export const LoginComponents = ({ theme }: Props) => {
       setLoading(false);
       setError(false);
       setCookie('accessToken', toSend.accessToken);
-    } else if(toSend.message === 'Invalid credentials') {
+    } else if (toSend.message === 'Invalid credentials') {
+      setErrMessage('Вы ввели неверный пароль');
       setError(true);
+      setLoading(false);
+    } else if (toSend.message === 'User not found') {
+      setErrMessage('Такого пользователя не существует');
+      setCorError(true);
       setLoading(false);
     }
     return toSend;
@@ -84,6 +92,7 @@ export const LoginComponents = ({ theme }: Props) => {
               {() => (
                 <TextField
                   fullWidth
+                  error={corError}
                   label="Введите номер телефона"
                   InputProps={{
                     inputMode: 'decimal',
@@ -103,8 +112,8 @@ export const LoginComponents = ({ theme }: Props) => {
               label="Введите 6-значный пин-код"
               type={showPassword ? 'tel' : 'password'}
               onChange={onChangePassword}
-              helperText={error && 'Вы ввели неверный пароль'}
-              error={error}
+              helperText={error && errMessage}
+              error={error || corError}
               value={password}
               InputProps={{
                 startAdornment: (
@@ -129,6 +138,14 @@ export const LoginComponents = ({ theme }: Props) => {
               }}
             />
           </div>
+          {corError && (
+            <div className="flex items-center mt-4 gap-2">
+              <WarningIcon className="fill-red-600" />
+              <Typography variant="body1" className="text-red-600">
+                { errMessage }
+              </Typography>
+            </div>
+          )}
           <Typography variant="body1" className="mt-6 text-[#00abc2]">
             <Link href="#">
               Забыли пароль?
