@@ -4,9 +4,10 @@
 
 .Mui-focused {
     color: #00abc2!important;
-    svg {
-        fill: #00abc2;
-    }
+}
+.Mui-focused svg {
+    fill: #00abc2;
+
 }
 .Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: #00abc2!important;
