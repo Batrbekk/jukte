@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useState, useEffect } from "react";
-import { LoginComponents } from "../components/organisms/Login";
+import { LoginComponents } from "../components/Login";
 import {ThemeProvider, createTheme, PaletteMode} from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 const Home: NextPage = () => {
