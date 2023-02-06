@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Props} from './props';
 import { Fab, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { LoadingButton } from "@mui/lab";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -13,7 +12,7 @@ import InputMask from 'react-input-mask';
 import Link from "next/link";
 import {setCookie} from "cookies-next";
 
-export const LoginComponents = ({ theme }: Props) => {
+export const LoginComponents = () => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -147,7 +146,7 @@ export const LoginComponents = ({ theme }: Props) => {
             </div>
           )}
           <Typography variant="body1" className="mt-6 text-[#00abc2]">
-            <Link href="#">
+            <Link href="components/Login#">
               Забыли пароль?
             </Link>
           </Typography>
