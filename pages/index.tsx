@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useState, useEffect } from "react";
-import { LoginComponents } from "../components";
+import { LoginComponents } from "../components/LoginComponents";
 import {ThemeProvider, createTheme, PaletteMode} from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 const Home: NextPage = () => {
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       <ThemeProvider theme={darkTheme}>
         <div className="min-h-screen p-4">
           <CssBaseline />
-          <LoginComponents theme={theme} />
+          <LoginComponents />
         </div>
       </ThemeProvider>
     </div>
