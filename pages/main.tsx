@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import React, { useState, useEffect } from "react";
-import { LoginView } from "../components/organisms/Login";
 import {ThemeProvider, createTheme, PaletteMode} from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
+import {MainView} from "../components/organisms/Main";
 
-const Home: NextPage = () => {
+const Main: NextPage = () => {
   const [theme , setTheme] = useState<PaletteMode>('light');
 
   useEffect(() => {
@@ -23,13 +23,13 @@ const Home: NextPage = () => {
   return (
     <div className="bg-white dark:bg-[#0a0a0a]">
       <ThemeProvider theme={darkTheme}>
-        <div className="min-h-screen p-4">
+        <div className="min-h-screen py-4">
           <CssBaseline />
-          <LoginView />
+          <MainView />
         </div>
       </ThemeProvider>
     </div>
   )
 }
 
-export default Home;
+export default Main;

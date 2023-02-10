@@ -11,8 +11,9 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import InputMask from 'react-input-mask';
 import Link from "next/link";
 import {setCookie} from "cookies-next";
+import {useRouter} from "next/router";
 
-export const LoginComponents = () => {
+export const LoginView = () => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -21,6 +22,8 @@ export const LoginComponents = () => {
   const [error, setError] = useState<boolean>(false);
   const [corError, setCorError] = useState<boolean>(false);
   const [errMessage, setErrMessage] = useState<string>('');
+
+  const router = useRouter();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,7 +34,7 @@ export const LoginComponents = () => {
     if (typeof event.target.value === "string") {
       setPhone(event.target.value.replace(/(-)|\+|\(|\)|(_)/g, ''));
     }
-  }, [setPhone]);
+  }, []);
   const onChangePassword = useCallback((event: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(event.target.value);
     setError(false);
@@ -54,9 +57,10 @@ export const LoginComponents = () => {
     });
     const toSend = await response.json();
     if (response.ok) {
+      setCookie('accessToken', toSend.accessToken);
+      await router.push('/main');
       setLoading(false);
       setError(false);
-      setCookie('accessToken', toSend.accessToken);
     } else if (toSend.message === 'Invalid credentials') {
       setErrMessage('Вы ввели неверный пароль');
       setError(true);
@@ -158,9 +162,13 @@ export const LoginComponents = () => {
           <LoadingButton
             loading={loading}
             disabled={disabled}
-            endIcon={<ArrowForwardIcon />}
+            endIcon={!loading && (
+              <ArrowForwardIcon />
+            )}
             variant="contained"
-            className="w-full bg-[#00abc2] text-white"
+            className={loading ?
+              'w-full bg-[#00abc2] text-white disabled:bg-[#e0e0e0] disabled:text-[#e0e0e0] dark:disabled:bg-[#232323] dark:disabled:text-[#232323]' :
+              'w-full bg-[#00abc2] text-white disabled:bg-[#e0e0e0] dark:disabled:bg-[#232323] dark:disabled:text-[#626262]'}
             onClick={() => {
               toLogin(phone, password);
             }}
