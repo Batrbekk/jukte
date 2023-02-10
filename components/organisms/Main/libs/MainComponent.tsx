@@ -64,6 +64,7 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
       <MyOrdersSection />
       <Divider className="my-4 dark:border-white" />
       <CargoOrderSection />
+      <Divider className="my-4 dark:border-white" />
     </>
   )
 }
