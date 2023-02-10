@@ -15,6 +15,7 @@ import { getCookie } from "cookies-next";
 
 export const MyOrder = ({order}: MyOrderProps) => {
   const token = getCookie('accessToken');
+  const myPhone = getCookie('myPhone');
   const [expanded, setExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -44,7 +45,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
   }, [expanded]);
 
   return (
-    <Accordion expanded={expanded} onChange={handleChange} className="mt-2">
+    <Accordion expanded={expanded} onChange={handleChange} className="w-full mt-2">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1bh-content"
@@ -54,6 +55,9 @@ export const MyOrder = ({order}: MyOrderProps) => {
         <div className="flex items-center">
           {order.status === 'open' && (
             <Chip label="Открытая" variant="outlined" className="border-[#00abc2] text-[#00abc2] mr-2" />
+          )}
+          {order.status === 'inProgress' && (
+            <Chip label="В процессе" variant="outlined" color="warning" className="mr-2" />
           )}
           <Typography variant="body2" className="">
             {order.from} - {order.to}
@@ -121,17 +125,34 @@ export const MyOrder = ({order}: MyOrderProps) => {
           </Typography>
         </div>
         <div className="mt-4 flex flex-col gap-y-3">
-          <LoadingButton
-            variant="outlined"
-            loading={loading}
-            className="w-full border-red-400 text-red-400 disabled:border-[#393939] disabled:text-transparent"
-            onClick={deleteOrder}
-          >
-            Удалить
-          </LoadingButton>
-          <LoadingButton variant="outlined" className="w-full border-[#00abc2] text-[#00abc2]">
-            Редактировать
-          </LoadingButton>
+          {myPhone === order.ownerPhone && (
+            <>
+              <LoadingButton
+                variant="outlined"
+                loading={loading}
+                color="error"
+                className="w-full"
+                onClick={deleteOrder}
+              >
+                Удалить
+              </LoadingButton>
+              <LoadingButton variant="outlined" className="w-full border-[#00abc2] text-[#00abc2]">
+                Редактировать
+              </LoadingButton>
+            </>
+          )}
+          {myPhone !== order.ownerPhone && order.status === 'inProgress' && (
+            <LoadingButton
+              variant="outlined"
+              loading={loading}
+              color="success"
+              className="w-full"
+              onClick={() => {
+                console.log('finish')}}
+            >
+              Завершить поездку
+            </LoadingButton>
+          )}
         </div>
       </AccordionDetails>
     </Accordion>

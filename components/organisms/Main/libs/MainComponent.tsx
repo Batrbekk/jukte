@@ -1,13 +1,18 @@
-import React from "react";
-import {Typography, IconButton, Divider, Chip} from "@mui/material";
-import { UserMainCard } from "../types/UserMainCard";
-import { ProfileType } from "../../../molecules/NavList/type/profileType";
+import React, {useCallback} from "react";
+import {Divider, IconButton, Typography} from "@mui/material";
+import {UserMainCard} from "../types/UserMainCard";
+import {ProfileType} from "../../../molecules/NavList/type/profileType";
 import UploadIcon from '@mui/icons-material/Upload';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import {MyOrdersSection} from "../../../molecules/MyOrdersSection";
+import {CargoOrderSection} from "../../../molecules/CargoOrderSection";
+import {ItemTypeProps} from "../../../molecules/NavList/type/itemType";
 
-export const MainComponent = ({name, surname, role, archive} : UserMainCard) => {
+export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) => {
+  const onClickButton = (item: ItemTypeProps) => {
+    onSetStep(item);
+  };
   return (
     <>
       <div className="px-4">
@@ -43,7 +48,9 @@ export const MainComponent = ({name, surname, role, archive} : UserMainCard) => 
               Добавить машину
             </Typography>
           </div>
-          <div className="text-center w-1/3">
+          <div className="text-center w-1/3" onClick={(event) => {
+            onClickButton(ItemTypeProps.USER_DATA)
+          }}>
             <IconButton className="rounded-full bg-black dark:bg-white">
               <AccountBoxIcon className="fill-white dark:fill-black" />
             </IconButton>
@@ -54,8 +61,9 @@ export const MainComponent = ({name, surname, role, archive} : UserMainCard) => 
         </div>
       </div>
       <Divider className="my-4 dark:border-white" />
-      <MyOrdersSection archive={archive} />
+      <MyOrdersSection />
       <Divider className="my-4 dark:border-white" />
+      <CargoOrderSection />
     </>
   )
 }

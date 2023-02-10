@@ -10,6 +10,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SearchIcon from '@mui/icons-material/Search';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import PaidIcon from '@mui/icons-material/Paid';
+import FolderIcon from '@mui/icons-material/Folder';
 import { ProfileType } from "./type/profileType";
 import { ItemTypeProps } from './type/itemType';
 import { NavListProps } from "./type/props";
@@ -35,6 +36,18 @@ export const NavList = ({role, onSetStep, currentStep}: NavListProps) => {
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Главная страница" />
+        </ListItemButton>
+        <ListItemButton
+          selected={selectedItem === ItemTypeProps.MY_ORDERS}
+          onClick={() => {
+            setSelectedItem(ItemTypeProps.MY_ORDERS);
+            onSetStep(ItemTypeProps.MY_ORDERS);
+          }}
+        >
+          <ListItemIcon>
+            <FolderIcon />
+          </ListItemIcon>
+          <ListItemText primary="Мои заявки" />
         </ListItemButton>
         <ListItemButton
           selected={selectedItem === ItemTypeProps.USER_DATA}

@@ -2,6 +2,7 @@ export enum ItemTypeProps {
   MAIN = 'main',
   USER_DATA = 'user_data',
   ADD_CARGO = 'add_cargo',
+  MY_ORDERS = 'my_orders',
   SEARCH_CARGO = 'search_cargo',
   ADD_TRUCK = 'add_truck',
   INSURANCE = 'insurance',

@@ -1,4 +1,4 @@
-export type ArchiveOrders = {
+export type Orders = {
   readonly data: {
     readonly orders: [
       {

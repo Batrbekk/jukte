@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Chip, Skeleton, Typography } from "@mui/material";
-import { MyOrder } from "../../atoms/MyOrder";
-import { getCookie } from "cookies-next";
-import { Orders } from "../../organisms/Main/types/Orders";
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import React, {useEffect, useState} from "react";
+import {Button, Chip, Skeleton, Typography} from "@mui/material";
+import {getCookie} from "cookies-next";
+import {Orders} from "../../organisms/Main/types/Orders";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import {CargoOrder} from "../../atoms/CargoOrder";
 
-export const MyOrdersSection = () => {
+export const CargoOrderSection = () => {
   const token = getCookie('accessToken');
-  const [archiveOrder, setArchiveOrder] = useState<Orders>();
+  const [cargoOrders, setCargoOrders] = useState<Orders>();
   const [totalOrders, setTotalOrders] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const getArchive = async () => {
+    const getOrders = async () => {
       if (token) {
-        const response = await fetch('https://api.jukte.kz/orders/archive', {
+        const response = await fetch('https://api.jukte.kz/orders/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -30,8 +30,8 @@ export const MyOrdersSection = () => {
       }
     };
 
-    getArchive().then(r => {
-      setArchiveOrder(r);
+    getOrders().then(r => {
+      setCargoOrders(r);
       setTotalOrders(r.pagination.total);
     })
   }, [token]);
@@ -50,18 +50,18 @@ export const MyOrdersSection = () => {
         <>
           <div className="flex -items-center justify-between">
             <Typography variant="h6" className="font-medium">
-              Мои заявки
+              Грузы
             </Typography>
             <Chip label={'Количество: ' + totalOrders} variant="outlined" />
           </div>
           <div className="mt-4">
-            {archiveOrder && archiveOrder.data.orders.length > 0 ? (
-              archiveOrder.data.orders.slice(0, 1).map((order,index) => (
-                <MyOrder order={order} key={index}  />
+            {cargoOrders && cargoOrders.data.orders.length > 0 ? (
+              cargoOrders.data.orders.slice(0, 1).map((order,index) => (
+                <CargoOrder order={order} key={index}  />
               ))
-            ): (
+            ) : (
               <Typography variant="body1">
-                У вас нету заявок
+                Пожалуйста посмотрите позже, грузов временно нет.
               </Typography>
             )}
           </div>
