@@ -63,9 +63,13 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
         </div>
       </div>
       <Divider className="my-4 dark:border-white" />
-      <MyOrdersSection />
+      <MyOrdersSection onSetStep={() => {
+        onClickButton(ItemTypeProps.MY_ORDERS);
+      }} />
       <Divider className="my-4 dark:border-white" />
-      <CargoOrderSection />
+      <CargoOrderSection onSetStep={() => {
+        onClickButton(ItemTypeProps.CARGO_ORDERS);
+      }} />
       <Divider className="my-4 dark:border-white" />
     </>
   )

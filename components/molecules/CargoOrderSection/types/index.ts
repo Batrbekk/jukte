@@ -1,5 +1,5 @@
-import { Orders } from "../../../organisms/Main/types/Orders";
+import { HTMLAttributes } from "react";
 
-export type CargoOrdersSectionProps = {
-  readonly orders: Orders
+export type CargoOrdersSectionProps = HTMLAttributes<HTMLDivElement> & {
+  readonly onSetStep: () => void;
 }

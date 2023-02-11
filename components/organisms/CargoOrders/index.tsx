@@ -5,9 +5,9 @@ import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import { getCookie } from "cookies-next";
 import { Orders } from "../Main/types/Orders";
-import { MyOrder } from "../../atoms/MyOrder";
+import { CargoOrder } from "../../atoms/CargoOrder";
 
-export const MyOrdersView = () => {
+export const CargoOrdersView = () => {
   const token = getCookie('accessToken');
   const [archiveOrder, setArchiveOrder] = useState<Orders>();
   const [totalOrders, setTotalOrders] = useState<number>(0);
@@ -24,7 +24,7 @@ export const MyOrdersView = () => {
   useEffect(() => {
     const getArchive = async () => {
       if (token) {
-        const response = await fetch(`https://api.jukte.kz/orders/archive/?page=${paginationPage}`, {
+        const response = await fetch(`https://api.jukte.kz/orders/?page=${paginationPage}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -51,7 +51,7 @@ export const MyOrdersView = () => {
     setLoading(true);
     const getArchive = async () => {
       if (token) {
-        const response = await fetch(`https://api.jukte.kz/orders/archive/?page=${value}`, {
+        const response = await fetch(`https://api.jukte.kz/orders/?page=${value}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
@@ -80,22 +80,22 @@ export const MyOrdersView = () => {
           <Skeleton animation="wave" variant="rounded" height={56} className="dark:bg-[#232323] mt-4" />
           <Skeleton animation="wave" variant="rounded" height={56} className="dark:bg-[#232323] mt-4" />
         </>
-        ) : (
+      ) : (
         <>
           <div className="flex items-center justify-between">
             <Typography variant="h6">
-              Мои заявки
+              Грузы
             </Typography>
             <Chip label={'Количество: ' + totalOrders} variant="outlined" />
           </div>
           <div className="mt-4">
             {archiveOrder && archiveOrder.data.orders.length > 0 ? (
               archiveOrder.data.orders.map((order,index) => (
-                <MyOrder order={order} key={index}  />
+                <CargoOrder order={order} key={index}  />
               ))
             ): (
               <Typography variant="body1">
-                У вас нету заявок
+                Пожалуйста посмотрите позже, грузов временно нет.
               </Typography>
             )}
           </div>

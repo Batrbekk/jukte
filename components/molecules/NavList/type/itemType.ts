@@ -3,6 +3,7 @@ export enum ItemTypeProps {
   USER_DATA = 'user_data',
   ADD_CARGO = 'add_cargo',
   MY_ORDERS = 'my_orders',
+  CARGO_ORDERS = 'cargo_orders',
   SEARCH_CARGO = 'search_cargo',
   ADD_TRUCK = 'add_truck',
   INSURANCE = 'insurance',

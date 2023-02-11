@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { getCookie } from "cookies-next";
-import { Orders } from "../../organisms/Main/types/Orders";
-import { CargoOrder } from "../../atoms/CargoOrder";
+import {getCookie} from "cookies-next";
+import {Orders} from "../../organisms/Main/types/Orders";
+import {CargoOrder} from "../../atoms/CargoOrder";
+import {CargoOrdersSectionProps} from "./types";
 
-export const CargoOrderSection = () => {
+export const CargoOrderSection = ({onSetStep}: CargoOrdersSectionProps) => {
   const token = getCookie('accessToken');
   const [cargoOrders, setCargoOrders] = useState<Orders>();
   const [totalOrders, setTotalOrders] = useState<number>(0);
@@ -74,6 +75,9 @@ export const CargoOrderSection = () => {
               endIcon={
                 <KeyboardArrowRightIcon />
               }
+              onClick={() => {
+                onSetStep();
+              }}
               className="border-[#00abc2] text-[#00abc2]"
             >
               Посмотреть все

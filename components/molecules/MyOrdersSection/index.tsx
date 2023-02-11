@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { MyOrder } from "../../atoms/MyOrder";
-import { getCookie } from "cookies-next";
-import { Orders } from "../../organisms/Main/types/Orders";
+import {MyOrder} from "../../atoms/MyOrder";
+import {getCookie} from "cookies-next";
+import {Orders} from "../../organisms/Main/types/Orders";
+import {MyOrdersSectionProps} from "./types";
 
-export const MyOrdersSection = () => {
+export const MyOrdersSection = ({onSetStep}: MyOrdersSectionProps) => {
   const token = getCookie('accessToken');
   const [archiveOrder, setArchiveOrder] = useState<Orders>();
   const [totalOrders, setTotalOrders] = useState<number>(0);
@@ -71,6 +72,9 @@ export const MyOrdersSection = () => {
           <div className="mt-4 flex justify-end">
             <Button
               variant="outlined"
+              onClick={() => {
+                onSetStep();
+              }}
               endIcon={
                 <KeyboardArrowRightIcon />
               }
