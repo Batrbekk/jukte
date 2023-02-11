@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Button, Chip, Skeleton, Typography} from "@mui/material";
-import {getCookie} from "cookies-next";
-import {Orders} from "../../organisms/Main/types/Orders";
+import React, { useEffect, useState } from "react";
+import { Button, Chip, Skeleton, Typography } from "@mui/material";
+import { getCookie } from "cookies-next";
+import { Orders } from "../../organisms/Main/types/Orders";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import {CargoOrder} from "../../atoms/CargoOrder";
+import { CargoOrder } from "../../atoms/CargoOrder";
 
 export const CargoOrderSection = () => {
   const token = getCookie('accessToken');

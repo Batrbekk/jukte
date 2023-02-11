@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import { faqText } from "./mock";
-import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const Faq = () => {

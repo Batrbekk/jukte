@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Fab, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { LoadingButton } from "@mui/lab";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -6,12 +6,12 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PasswordIcon from '@mui/icons-material/Password';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import WarningIcon from '@mui/icons-material/Warning';
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 // @ts-ignore
 import InputMask from 'react-input-mask';
 import Link from "next/link";
-import {setCookie} from "cookies-next";
-import {useRouter} from "next/router";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 export const LoginView = () => {
   const [showPassword, setShowPassword] = useState<boolean>(true);

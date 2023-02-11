@@ -10,7 +10,7 @@ import { Faq } from "../Faq";
 import { useRouter } from "next/router";
 import { LoadingButton } from "@mui/lab";
 import { Profile } from "../Profile";
-import {MyOrdersView} from "../MyOrders";
+import { MyOrdersView } from "../MyOrders";
 
 export const MainView = () => {
   const token = getCookie('accessToken');
