@@ -1,7 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { getCookie } from "cookies-next";
 import { CargoOrderProps } from "./types";
-import { Accordion, AccordionSummary, Typography, AccordionDetails, Chip, Modal, Paper } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Chip from "@mui/material/Chip";
+import Modal from "@mui/material/Modal";
+import Paper from "@mui/material/Paper";
 import { LoadingButton } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PaidIcon from '@mui/icons-material/Paid';

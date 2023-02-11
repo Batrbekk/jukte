@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Paper, Skeleton, TextField, Typography} from "@mui/material";
-import {UserInfoProps} from "../Main/types/UserInfo";
-import {getCookie, setCookie} from "cookies-next";
+import Paper from "@mui/material/Paper";
+import Skeleton from "@mui/material/Skeleton";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { UserInfoProps } from "../Main/types/UserInfo";
+import { getCookie } from "cookies-next";
 
 export const Profile = () => {
   const token = getCookie('accessToken');

@@ -1,13 +1,15 @@
-import React, {useCallback} from "react";
-import {Divider, IconButton, Typography} from "@mui/material";
-import {UserMainCard} from "../types/UserMainCard";
-import {ProfileType} from "../../../molecules/NavList/type/profileType";
+import React from "react";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import UploadIcon from '@mui/icons-material/Upload';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import {MyOrdersSection} from "../../../molecules/MyOrdersSection";
-import {CargoOrderSection} from "../../../molecules/CargoOrderSection";
-import {ItemTypeProps} from "../../../molecules/NavList/type/itemType";
+import { UserMainCard } from "../types/UserMainCard";
+import { ProfileType } from "../../../molecules/NavList/type/profileType";
+import { MyOrdersSection } from "../../../molecules/MyOrdersSection";
+import { CargoOrderSection } from "../../../molecules/CargoOrderSection";
+import { ItemTypeProps } from "../../../molecules/NavList/type/itemType";
 
 export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) => {
   const onClickButton = (item: ItemTypeProps) => {

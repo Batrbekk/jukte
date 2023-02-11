@@ -1,17 +1,22 @@
-import React, {useCallback, useEffect, useState} from "react";
-import { Fab, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { LoadingButton } from "@mui/lab";
+import React, { useCallback, useEffect, useState } from "react";
+import Fab from "@mui/material/Fab";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import LoadingButton from "@mui/lab/LoadingButton";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PasswordIcon from '@mui/icons-material/Password';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import WarningIcon from '@mui/icons-material/Warning';
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // @ts-ignore
 import InputMask from 'react-input-mask';
 import Link from "next/link";
-import {setCookie} from "cookies-next";
-import {useRouter} from "next/router";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 export const LoginView = () => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
@@ -131,7 +136,7 @@ export const LoginView = () => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                      {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                     </IconButton>
                   </InputAdornment>
                 ),

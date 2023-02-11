@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { MyOrderProps } from "./types";
-import { Accordion, AccordionSummary, Typography, AccordionDetails, Chip } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Chip from "@mui/material/Chip";
 import { LoadingButton } from "@mui/lab";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PaidIcon from '@mui/icons-material/Paid';

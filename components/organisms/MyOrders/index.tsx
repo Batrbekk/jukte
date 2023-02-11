@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Chip, Skeleton, Typography } from "@mui/material";
+import Chip from "@mui/material/Chip";
+import Skeleton from "@mui/material/Skeleton";
+import Typography from "@mui/material/Typography";
 import { getCookie } from "cookies-next";
 import { Orders } from "../Main/types/Orders";
 import { MyOrder } from "../../atoms/MyOrder";

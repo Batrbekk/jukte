@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import React, { useState, useEffect } from "react";
 import { LoginView } from "../components/organisms/Login";
-import {ThemeProvider, createTheme, PaletteMode} from "@mui/material";
+import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 
 const Home: NextPage = () => {

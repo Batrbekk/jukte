@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import React, { useState, useEffect } from "react";
-import {ThemeProvider, createTheme, PaletteMode} from "@mui/material";
+import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
-import {MainView} from "../components/organisms/Main";
+import { MainView } from "../components/organisms/Main";
 
 const Main: NextPage = () => {
   const [theme , setTheme] = useState<PaletteMode>('light');

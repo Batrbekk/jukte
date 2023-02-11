@@ -1,9 +1,11 @@
-import React, {ReactElement, useCallback, useState} from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { NavList } from "../NavList";
-import {IconButton, Drawer, Typography} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Drawer from "@mui/material/Drawer";
+import Typography from "@mui/material/Typography";
 import MenuIcon from '@mui/icons-material/Menu';
-import {NavbarProps} from "./type/props";
-import {ItemTypeProps} from "../NavList/type/itemType";
+import { NavbarProps } from "./type/props";
+import { ItemTypeProps } from "../NavList/type/itemType";
 
 export const Navbar = ({role, onSetStep, currentStep}: NavbarProps): ReactElement => {
   const [navState, setNavState] = useState<boolean>(false);

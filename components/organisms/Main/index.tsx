@@ -1,16 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Navbar } from "../../molecules/Navbar";
-import { Divider, IconButton, Modal, Paper, Skeleton, Typography } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
+import Paper from "@mui/material/Paper";
+import Skeleton from "@mui/material/Skeleton";
+import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { getCookie, setCookie } from "cookies-next";
 import { UserInfoProps } from "./types/UserInfo";
 import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
 import { MainComponent } from "./libs/MainComponent";
 import { Faq } from "../Faq";
 import { useRouter } from "next/router";
-import { LoadingButton } from "@mui/lab";
 import { Profile } from "../Profile";
-import {MyOrdersView} from "../MyOrders";
+import { MyOrdersView } from "../MyOrders";
 
 export const MainView = () => {
   const token = getCookie('accessToken');
