@@ -44,16 +44,30 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
               Добавить груз
             </Typography>
           </div>
-          <div className="text-center w-1/3" onClick={(event) => {
-            onClickButton(ItemTypeProps.ADD_TRUCK);
-          }}>
-            <IconButton className="rounded-full bg-[#00abc2]">
-              <LocalShippingIcon className="fill-white" />
-            </IconButton>
-            <Typography className="mt-2 text-xs" variant="body2">
-              Добавить машину
-            </Typography>
-          </div>
+          {role === 'driver' && (
+            <div className="text-center w-1/3" onClick={(event) => {
+              onClickButton(ItemTypeProps.ADD_TRUCK);
+            }}>
+              <IconButton className="rounded-full bg-[#00abc2]">
+                <LocalShippingIcon className="fill-white" />
+              </IconButton>
+              <Typography className="mt-2 text-xs" variant="body2">
+                Добавить машину
+              </Typography>
+            </div>
+          )}
+          {role === 'logistician' && (
+            <div className="text-center w-1/3" onClick={(event) => {
+              onClickButton(ItemTypeProps.SEARCH_TRUCK);
+            }}>
+              <IconButton className="rounded-full bg-[#00abc2]">
+                <LocalShippingIcon className="fill-white" />
+              </IconButton>
+              <Typography className="mt-2 text-xs" variant="body2">
+                Искать машину
+              </Typography>
+            </div>
+          )}
           <div className="text-center w-1/3" onClick={(event) => {
             onClickButton(ItemTypeProps.USER_DATA);
           }}>

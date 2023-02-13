@@ -70,6 +70,7 @@ export const MainView = () => {
       setCookie('myTransport', r.transport.type);
       setCookie('companyName', r.company.name);
       setCookie('role', r.role);
+      setCookie('ownerCompany', `${r.name} ${r.surname}`);
       setUserInfo(r);
     });
   }, [token]);
@@ -139,6 +140,9 @@ export const MainView = () => {
       )}
       {currentStep === ItemTypeProps.ADD_CARGO && (
         <AddCargo onSetStep={setStep} currentStep={currentStep} />
+      )}
+      {currentStep === ItemTypeProps.SEARCH_TRUCK && (
+        <SearchTruck />
       )}
       <Modal open={exitModal} onClose={() => {
         setExitModal(false);

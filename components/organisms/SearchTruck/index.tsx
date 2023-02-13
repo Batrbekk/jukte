@@ -8,11 +8,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import { weightList } from "../../../public/types/weight";
 import DatePicker from "react-datepicker";
-import {ru} from "date-fns/locale";
+import { ru } from "date-fns/locale";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { CargoOrdersView } from "../CargoOrders";
+import { getCookie } from "cookies-next";
+import { transportList } from "../../../public/types/transport";
 
 export const SearchTruck = () => {
+  const role = getCookie('role');
+  const [transport, setTransport] = useState<string>('');
   const [from, setFrom] = useState<string>('');
   const [to, setTo] = useState<string>('');
   const [cub, setCub] = useState<string>('');
@@ -33,6 +37,10 @@ export const SearchTruck = () => {
     setCub(event.target.value);
   }, []);
 
+  const onChangeTransport = useCallback((event: SelectChangeEvent) => {
+    setTransport(event.target.value);
+  }, []);
+
   const onChangeWeight = useCallback((event: SelectChangeEvent) => {
     setWeight(event.target.value);
   }, []);
@@ -40,12 +48,12 @@ export const SearchTruck = () => {
   return(
     <>
       {searchCargo ? (
-        <CargoOrdersView />
+        role === 'logistician' ? <p>asd</p> : <CargoOrdersView />
         ) : (
         <div className="w-full px-4 mt-4">
           <div className="flex items-center">
             <Typography variant="h6">
-              Найти груз
+              {role == 'logistician' ? 'Искать машину' : 'Искать груз'}
             </Typography>
           </div>
           <div className="mt-4 flex flex-col gap-4">
@@ -81,6 +89,24 @@ export const SearchTruck = () => {
                 ))}
               </Select>
             </FormControl>
+            {role === 'logistician' && (
+              <FormControl fullWidth>
+                <InputLabel id="select-label">Тип транспорта</InputLabel>
+                <Select
+                  labelId="cargo-load"
+                  id="cargo-load"
+                  value={transport}
+                  label="Вес груза"
+                  onChange={onChangeTransport}
+                >
+                  {transportList.map((item, index) => (
+                    <MenuItem key={index} value={item.label}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
             <FormControl fullWidth>
               <InputLabel id="select-label">Вес груза</InputLabel>
               <Select
@@ -144,7 +170,7 @@ export const SearchTruck = () => {
                 setSearchCargo(true);
               }}
             >
-              Найти груз
+              {role == 'logistician' ? 'Найти машину' : 'Найти груз'}
             </LoadingButton>
           </div>
         </div>

@@ -14,9 +14,9 @@ import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
 
 export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const myCompany = getCookie('companyName');
   const myTransport = getCookie('myTransport');
   const token = getCookie('accessToken');
+  const ownerCompany = getCookie('ownerCompany');
   const maxSteps = 3;
 
   //Map setState
@@ -135,7 +135,7 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
           distance: freeCar ? 'Свободная' : distance,
           detail: '',
           time: new Date(),
-          ownerCompany: myCompany,
+          ownerCompany: ownerCompany,
           transfer1: transfer,
           transfer2: transfer2,
           transfer3: transfer3,
