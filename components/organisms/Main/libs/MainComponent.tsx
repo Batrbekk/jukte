@@ -10,6 +10,7 @@ import { ProfileType } from "../../../molecules/NavList/type/profileType";
 import { MyOrdersSection } from "../../../molecules/MyOrdersSection";
 import { CargoOrderSection } from "../../../molecules/CargoOrderSection";
 import { ItemTypeProps } from "../../../molecules/NavList/type/itemType";
+import {TransportOrderSection} from "../../../molecules/TransportOrderSection";
 
 export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) => {
   const onClickButton = (item: ItemTypeProps) => {
@@ -85,10 +86,16 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
         onClickButton(ItemTypeProps.MY_ORDERS);
       }} />
       <Divider className="my-4 dark:border-white" />
-      <CargoOrderSection onSetStep={() => {
-        onClickButton(ItemTypeProps.CARGO_ORDERS);
-      }} />
-      <Divider className="my-4 dark:border-white" />
+      {role === 'driver' && (
+        <CargoOrderSection onSetStep={() => {
+          onClickButton(ItemTypeProps.CARGO_ORDERS);
+        }} />
+      )}
+      {role === 'logistician' && (
+        <TransportOrderSection onSetStep={() => {
+          onClickButton(ItemTypeProps.TRUCK_ORDERS);
+        }} />
+      )}
     </>
   )
 }

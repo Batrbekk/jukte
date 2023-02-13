@@ -178,48 +178,59 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
         </Typography>
         <Chip label={`Шаг: ${activeStep+1}/${maxSteps}`} variant="outlined" />
       </div>
-      {activeStep !== 2 && (
-        <>
-          <Divider className="my-4 dark:border-white" />
-          <div className="flex gap-4 item-center justify-between">
-            <Button fullWidth variant="outlined" disabled={activeStep === 0} onClick={handleBack}>
-              <KeyboardArrowLeft />
-              Назад
-            </Button>
-            <Button fullWidth variant="outlined" disabled={!disabledNext} onClick={handleNext}>
-              Далее
-              <KeyboardArrowRight />
-            </Button>
-          </div>
-        </>
-      )}
       <div className="mt-4">
         {activeStep === 0 && (
-          <OrderRoute
-            currentStep={currentStep}
-            getFrom={getFrom}
-            getInfoFromMap={getInfoFromMap}
-            onNextStepStatus={getInfoNextStepStatus}
-            onFreeCarStatus={getFreeCarStatus}
-          />
+          <>
+            <OrderRoute
+              currentStep={currentStep}
+              getFrom={getFrom}
+              getInfoFromMap={getInfoFromMap}
+              onNextStepStatus={getInfoNextStepStatus}
+              onFreeCarStatus={getFreeCarStatus}
+            />
+            <Divider className="my-4 dark:border-white" />
+            <div className="flex gap-4 item-center justify-between">
+              <Button fullWidth variant="outlined" disabled={true} onClick={handleBack}>
+                <KeyboardArrowLeft />
+                Назад
+              </Button>
+              <Button fullWidth variant="outlined" disabled={!disabledNext} onClick={handleNext}>
+                Далее
+                <KeyboardArrowRight />
+              </Button>
+            </div>
+          </>
         )}
         {activeStep === 1 && (
-          <OrderDesc
-            currentStep={currentStep}
-            getOrderDesc={getOrderDesc}
-            getStartDate={getStartDate}
-            getEndDate={getEndDate}
-            getCargoLoad={getCargoLoad}
-            getWeight={getWeight}
-            getCub={getCub}
-            getPrice={getPrice}
-            distance={distance}
-            onNextStepStatus={getInfoNextStepStatus}
-            duration={duration}
-            getProduct={getProduct}
-            freeCar={freeCar}
-            getTransport={getTransport}
-          />
+          <>
+            <OrderDesc
+              currentStep={currentStep}
+              getOrderDesc={getOrderDesc}
+              getStartDate={getStartDate}
+              getEndDate={getEndDate}
+              getCargoLoad={getCargoLoad}
+              getWeight={getWeight}
+              getCub={getCub}
+              getPrice={getPrice}
+              distance={distance}
+              onNextStepStatus={getInfoNextStepStatus}
+              duration={duration}
+              getProduct={getProduct}
+              freeCar={freeCar}
+              getTransport={getTransport}
+            />
+            <Divider className="my-4 dark:border-white" />
+            <div className="flex gap-4 item-center justify-between">
+              <Button fullWidth variant="outlined" onClick={handleBack}>
+                <KeyboardArrowLeft />
+                Назад
+              </Button>
+              <Button fullWidth variant="outlined" disabled={!disabledNext} onClick={handleNext}>
+                Далее
+                <KeyboardArrowRight />
+              </Button>
+            </div>
+          </>
         )}
         {activeStep === 2 && (
           loadOrder ? (
@@ -245,7 +256,11 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
               </div>
             </>
           ) : (
-            <Skeleton variant="rounded" className="w-full" height={300} />
+            <>
+              <Skeleton variant="rounded" className="w-full" height={200} />
+              <Skeleton variant="rounded" className="w-full" height={36} />
+              <Skeleton variant="rounded" className="w-full" height={36} />
+            </>
           )
         )}
       </div>

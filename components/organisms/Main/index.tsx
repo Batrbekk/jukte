@@ -20,6 +20,7 @@ import {CargoOrdersView} from "../CargoOrders";
 import {AddTruck} from "../AddTruck";
 import {SearchTruck} from "../SearchTruck";
 import {AddCargo} from "../AddCargo";
+import {TransportOrdersView} from "../TransportOrders";
 
 export const MainView = () => {
   const token = getCookie('accessToken');
@@ -117,7 +118,8 @@ export const MainView = () => {
             onSetStep={setStep}
             name={userInfo.name}
             surname={userInfo.surname}
-            role={userInfo.role} />
+            role={userInfo.role}
+          />
         )
       )}
       {currentStep === ItemTypeProps.FAQ && (
@@ -131,6 +133,9 @@ export const MainView = () => {
       )}
       {currentStep === ItemTypeProps.CARGO_ORDERS && (
         <CargoOrdersView />
+      )}
+      {currentStep === ItemTypeProps.TRUCK_ORDERS && (
+        <TransportOrdersView />
       )}
       {currentStep === ItemTypeProps.ADD_TRUCK && (
         <AddTruck onSetStep={setStep} currentStep={currentStep} />

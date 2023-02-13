@@ -17,11 +17,12 @@ import RvHookupIcon from '@mui/icons-material/RvHookup';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { getCookie } from "cookies-next";
+import Looks3Icon from "@mui/icons-material/Looks3";
 
 export const MyOrder = ({order}: MyOrderProps) => {
   const token = getCookie('accessToken');
   const myPhone = getCookie('myPhone');
-  const role = getCookie('')
+  const role = getCookie('role');
   const [expanded, setExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -99,6 +100,14 @@ export const MyOrder = ({order}: MyOrderProps) => {
             </Typography>
           </div>
         )}
+        {order.cubProduct !== "NaN" && (
+          <div className="flex items-center">
+            <Looks3Icon className="mr-2 fill-[#00abc2]" />
+            <Typography variant="body1">
+              {order.cubProduct} м<sup>3</sup>
+            </Typography>
+          </div>
+        )}
         <div className="flex items-center">
           <CalendarMonthIcon className="mr-2 fill-[#00abc2]" />
           <Typography variant="body1">
@@ -154,6 +163,19 @@ export const MyOrder = ({order}: MyOrderProps) => {
                 Редактировать
               </LoadingButton>
             </>
+          )}
+          {myPhone === order.ownerPhone && order.status === 'inProgress' && (
+            <LoadingButton
+              variant="outlined"
+              loading={loading}
+              color="success"
+              className="w-full"
+              onClick={() => {
+                console.log('finish')
+              }}
+            >
+              Завершить поездку
+            </LoadingButton>
           )}
           {myPhone !== order.ownerPhone && order.status === 'inProgress' && (
             <LoadingButton
