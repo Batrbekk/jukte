@@ -31,19 +31,20 @@ export const LoginView = () => {
   const router = useRouter();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
-  const onChangePhone = useCallback((event: { target: { value: React.SetStateAction<string>; }; }) => {
-    if (typeof event.target.value === "string") {
-      setPhone(event.target.value.replace(/(-)|\+|\(|\)|(_)/g, ''));
-    }
+  const onChangePhone = useCallback((event: React.ChangeEvent< HTMLInputElement>) => {
+    setPhone(event.target.value.replace(/(-)|\+|\(|\)|(_)/g, ''));
   }, []);
-  const onChangePassword = useCallback((event: { target: { value: React.SetStateAction<string>; }; }) => {
+
+  const onChangePassword = useCallback((event: React.ChangeEvent< HTMLInputElement>) => {
     setPassword(event.target.value);
     setError(false);
   }, []);
+
   useEffect(() => {
     setDisabled(!(phone.length === 11 && password.length === 6));
   });

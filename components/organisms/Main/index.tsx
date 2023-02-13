@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {Navbar} from "../../molecules/Navbar";
+import React, { useCallback, useEffect, useState } from "react";
+import { Navbar } from "../../molecules/Navbar";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
@@ -8,15 +8,16 @@ import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import LoadingButton from "@mui/lab/LoadingButton";
-import {getCookie, setCookie} from "cookies-next";
-import {UserInfoProps} from "./types/UserInfo";
-import {ItemTypeProps} from "../../molecules/NavList/type/itemType";
-import {MainComponent} from "./libs/MainComponent";
-import {Faq} from "../Faq";
-import {useRouter} from "next/router";
-import {Profile} from "../Profile";
-import {MyOrdersView} from "../MyOrders";
-import {CargoOrdersView} from "../CargoOrders";
+import { getCookie, setCookie } from "cookies-next";
+import { UserInfoProps } from "./types/UserInfo";
+import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
+import { MainComponent } from "./libs/MainComponent";
+import { Faq } from "../Faq";
+import { useRouter } from "next/router";
+import { Profile } from "../Profile";
+import { MyOrdersView } from "../MyOrders";
+import { CargoOrdersView } from "../CargoOrders";
+import { AddTruck } from "../AddTruck";
 
 export const MainView = () => {
   const token = getCookie('accessToken');
@@ -64,6 +65,8 @@ export const MainView = () => {
 
     getUser().then(r => {
       setCookie('myPhone', r.phone);
+      setCookie('myTransport', r.transport.type);
+      setCookie('companyName', r.company.name);
       setUserInfo(r);
     });
   }, [token]);
@@ -89,8 +92,6 @@ export const MainView = () => {
             <IconButton className="p-0" href="#">
               <SearchIcon />
             </IconButton>
-          </div>
-          <div>
           </div>
         </div>
       )}
@@ -124,6 +125,9 @@ export const MainView = () => {
       )}
       {currentStep === ItemTypeProps.CARGO_ORDERS && (
         <CargoOrdersView />
+      )}
+      {currentStep === ItemTypeProps.ADD_TRUCK && (
+        <AddTruck onSetStep={setStep} />
       )}
       <Modal open={exitModal} onClose={() => {
         setExitModal(false);

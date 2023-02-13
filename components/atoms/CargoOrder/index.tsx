@@ -8,7 +8,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Chip from "@mui/material/Chip";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
-import { LoadingButton } from "@mui/lab";
+import LoadingButton from "@mui/lab/LoadingButton";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PaidIcon from '@mui/icons-material/Paid';
 import ScaleIcon from '@mui/icons-material/Scale';

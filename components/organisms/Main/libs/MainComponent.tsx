@@ -24,8 +24,8 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
           </Typography>
         </div>
         <div className="mt-2 rounded relative overflow-hidden p-4">
-          <div className="absolute w-[204px] h-[134px] top-[-72px] left-[6px] bg-[#00abc2] opacity-50 blur-[120px] rotate-[41deg]" />
-          <div className="absolute w-[115px] h-[63px] top-[-6px] left-[258px] bg-[#00abc2] opacity-50 blur-[140px] rotate-[-26deg]" />
+          <div className="absolute w-[204px] h-[134px] top-[-72px] left-[6px] bg-[#00abc2] opacity-50 blur-[100px] rotate-[41deg]" />
+          <div className="absolute w-[115px] h-[63px] top-[-6px] left-[258px] bg-[#00abc2] opacity-50 blur-[100px] rotate-[-26deg]" />
           <Typography className="text-[#A2A2A2]">
             {role === ProfileType.DRIVER ? "Водитель" : "Грузоотправитель"}
           </Typography>
@@ -42,7 +42,9 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
               Добавить груз
             </Typography>
           </div>
-          <div className="text-center w-1/3">
+          <div className="text-center w-1/3" onClick={(event) => {
+            onClickButton(ItemTypeProps.ADD_TRUCK)
+          }}>
             <IconButton className="rounded-full bg-[#00abc2]">
               <LocalShippingIcon className="fill-white" />
             </IconButton>
