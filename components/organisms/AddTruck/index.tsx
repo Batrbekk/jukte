@@ -12,9 +12,10 @@ import { getCookie } from "cookies-next";
 import { AddTruckProps } from "./types";
 import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
 
-export const AddTruck = ({onSetStep}: AddTruckProps) => {
+export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const myCompany = getCookie('companyName');
+  const myTransport = getCookie('myTransport');
   const token = getCookie('accessToken');
   const maxSteps = 3;
 
@@ -67,6 +68,10 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
     setProduct(product);
   };
 
+  const getFrom = (from: string) => {
+    setFrom(from);
+  };
+
   const getTransport = (transport: string) => {
     setTransport(transport);
   };
@@ -99,6 +104,10 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
     setPrice(price);
   };
 
+  const getFreeCarStatus = (freeCarStatus: boolean) => {
+    setFreeCar(freeCarStatus);
+  };
+
   const getInfoNextStepStatus = (nextStepStatus: boolean) => {
     setDisableNext(nextStepStatus);
   };
@@ -117,7 +126,7 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
           price: price,
           weight: weight,
           date: `${startDate} - ${endDate}`,
-          type: transport,
+          type: myTransport,
           from: from,
           to: freeCar ? 'На все направления' : to,
           loadType: cargoLoad,
@@ -187,12 +196,16 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
       <div className="mt-4">
         {activeStep === 0 && (
           <OrderRoute
+            currentStep={currentStep}
+            getFrom={getFrom}
             getInfoFromMap={getInfoFromMap}
             onNextStepStatus={getInfoNextStepStatus}
+            onFreeCarStatus={getFreeCarStatus}
           />
         )}
         {activeStep === 1 && (
           <OrderDesc
+            currentStep={currentStep}
             getOrderDesc={getOrderDesc}
             getStartDate={getStartDate}
             getEndDate={getEndDate}
@@ -204,6 +217,7 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
             onNextStepStatus={getInfoNextStepStatus}
             duration={duration}
             getProduct={getProduct}
+            freeCar={freeCar}
             getTransport={getTransport}
           />
         )}

@@ -1,6 +1,10 @@
+import { ItemTypeProps } from "../../NavList/type/itemType";
+
 export type OrderDescProps = {
+  readonly currentStep: ItemTypeProps,
   readonly distance: string,
   readonly duration: string,
+  readonly freeCar: boolean,
   readonly onNextStepStatus: (nextStepStats: boolean) => void;
   readonly getOrderDesc: (orderDesc: string) => void;
   readonly getProduct: (orderDesc: string) => void;

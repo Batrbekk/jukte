@@ -1,23 +1,26 @@
 import React, {useCallback, useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, {SelectChangeEvent} from '@mui/material/Select';
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from '@mui/material/MenuItem';
 import Typography from "@mui/material/Typography";
 import LoadingButton from "@mui/lab/LoadingButton";
 import DatePicker from "react-datepicker";
-import { ru } from "date-fns/locale";
-import { weightList } from "../../../public/types/weight";
-import { cubList } from "../../../public/types/cub";
-import { transportList } from "../../../public/types/transport";
-import { OrderDescProps } from "./types";
+import {ru} from "date-fns/locale";
+import {weightList} from "../../../public/types/weight";
+import {cubList} from "../../../public/types/cub";
+import {transportList} from "../../../public/types/transport";
+import {OrderDescProps} from "./types";
 import moment from "moment";
-import { getCookie } from "cookies-next";
+import {getCookie} from "cookies-next";
+import {ItemTypeProps} from "../NavList/type/itemType";
 
 
 export const OrderDesc = ({
+                            currentStep,
                             distance,
+                            freeCar,
                             duration,
                             onNextStepStatus,
                             getOrderDesc,
@@ -31,6 +34,7 @@ export const OrderDesc = ({
                             getTransport,
                           }: OrderDescProps) => {
   const myTransport = getCookie('myTransport');
+  const role = getCookie('role');
   const [transport, setTransport] = useState<string>('');
   const [orderDesc, setOrderDesc] = useState<string>('');
   const [product, setProduct] = useState<string>('');
@@ -78,9 +82,9 @@ export const OrderDesc = ({
 
   const onCalcPrice = useCallback(() => {
     let corrDistance = parseInt(distance.replace(/\s/g, ''));
-    if (transport) {
+    if (role === 'driver' && currentStep === ItemTypeProps.ADD_TRUCK) {
       let transportObj = transportList.filter(obj => {
-        return obj.label === transport
+        return obj.label === myTransport;
       });
       let transportPrice = transportObj[0].price;
       if (transportPrice === 25) {
@@ -95,25 +99,91 @@ export const OrderDesc = ({
       }
       setCalcRes(true);
     }
+    else if (role === 'driver' && currentStep === ItemTypeProps.ADD_CARGO) {
+      if (transport) {
+        let transportObj = transportList.filter(obj => {
+          return obj.label === transport;
+        });
+        let transportPrice = transportObj[0].price;
+        if (transportPrice === 25) {
+          let totalPrice = transportPrice * parseFloat(weight) * corrDistance;
+          setPrice(totalPrice + ' ₸');
+          getPrice(totalPrice + ' ₸');
+        }
+        else {
+          let totalPrice = corrDistance * transportPrice;
+          setPrice(totalPrice + ' ₸');
+          getPrice(totalPrice + ' ₸');
+        }
+        setCalcRes(true);
+      }
+    }
+    else {
+      if (transport) {
+        let transportObj = transportList.filter(obj => {
+          return obj.label === transport;
+        });
+        let transportPrice = transportObj[0].price;
+        if (transportPrice === 25) {
+          let totalPrice = transportPrice * parseFloat(weight) * corrDistance;
+          setPrice(totalPrice + ' ₸');
+          getPrice(totalPrice + ' ₸');
+        }
+        else {
+          let totalPrice = corrDistance * transportPrice;
+          setPrice(totalPrice + ' ₸');
+          getPrice(totalPrice + ' ₸');
+        }
+        setCalcRes(true);
+      }
+    }
   }, [myTransport, transport]);
 
   useEffect(() => {
-    if(price) {
-      onNextStepStatus(true);
+    if (role === 'driver') {
+      if (freeCar) {
+        if (startDate && endDate && cargoLoad && weight && cub) {
+          onNextStepStatus(true);
+        } else {
+          onNextStepStatus(false);
+        }
+      } else {
+        if (startDate && endDate && cargoLoad && weight && cub && price && distance && duration) {
+          onNextStepStatus(true);
+        } else {
+          onNextStepStatus(false);
+        }
+      }
     } else {
-      onNextStepStatus(false);
+      if(price) {
+        onNextStepStatus(true);
+      } else {
+        onNextStepStatus(false);
+      }
     }
   });
 
+  useEffect(() => {
+    if (freeCar) {
+      setPrice('Договорная');
+      getPrice('Договорная');
+    } else {
+      setPrice('');
+      getPrice('');
+    }
+  }, [freeCar]);
+
   return (
     <div className="flex flex-col gap-4">
-      <TextField
-        id="product-desc"
-        label="Наименование товара"
-        value={product}
-        onChange={onChangeProduct}
-        fullWidth
-      />
+      {role !== 'driver' || currentStep === ItemTypeProps.ADD_CARGO && (
+        <TextField
+          id="product-desc"
+          label="Наименование товара"
+          value={product}
+          onChange={onChangeProduct}
+          fullWidth
+        />
+      )}
       <TextField
         id="order-desc"
         label="Детали перевозки"
@@ -165,22 +235,24 @@ export const OrderDesc = ({
           />
         </div>
       </div>
-      <FormControl fullWidth>
-        <InputLabel id="select-label">Тип транспорта</InputLabel>
-        <Select
-          labelId="cargo-load"
-          id="cargo-load"
-          value={transport}
-          label="Вес груза"
-          onChange={onChangeTransport}
-        >
-          {transportList.map((item, index) => (
-            <MenuItem key={index} value={item.label}>
-              {item.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {role !== 'driver' || currentStep === ItemTypeProps.ADD_CARGO && (
+        <FormControl fullWidth>
+          <InputLabel id="select-label">Тип транспорта</InputLabel>
+          <Select
+            labelId="cargo-load"
+            id="cargo-load"
+            value={transport}
+            label="Вес груза"
+            onChange={onChangeTransport}
+          >
+            {transportList.map((item, index) => (
+              <MenuItem key={index} value={item.label}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
       <FormControl fullWidth>
         <InputLabel id="select-label">Тип погрузки</InputLabel>
         <Select
@@ -228,52 +300,54 @@ export const OrderDesc = ({
           ))}
         </Select>
       </FormControl>
-      <>
-        <LoadingButton
-          variant="outlined"
-          disabled={calcDisabled}
-          onClick={onCalcPrice}
-        >
-          Посчитать стоимость
-        </LoadingButton>
-        {calcRes && (
-          <div className="rounded border p-4 flex flex-col gap-y-4">
-            <Typography variant="subtitle1">
-              Расчетные данные
-            </Typography>
-            <TextField
-              id="standard-basic"
-              fullWidth
-              variant="standard"
-              label="Расстояние"
-              value={distance}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextField
-              id="standard-basic"
-              fullWidth
-              variant="standard"
-              label="Время в пути"
-              value={duration}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextField
-              id="standard-basic"
-              fullWidth
-              variant="standard"
-              label="Цена"
-              value={price}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          </div>
-        )}
-      </>
+      {!freeCar && (
+        <>
+          <LoadingButton
+            variant="outlined"
+            disabled={calcDisabled}
+            onClick={onCalcPrice}
+          >
+            Посчитать стоимость
+          </LoadingButton>
+          {calcRes && (
+            <div className="rounded border p-4 flex flex-col gap-y-4">
+              <Typography variant="subtitle1">
+                Расчетные данные
+              </Typography>
+              <TextField
+                id="standard-basic"
+                fullWidth
+                variant="standard"
+                label="Расстояние"
+                value={distance}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                id="standard-basic"
+                fullWidth
+                variant="standard"
+                label="Время в пути"
+                value={duration}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                id="standard-basic"
+                fullWidth
+                variant="standard"
+                label="Цена"
+                value={price}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </div>
+          )}
+        </>
+      )}
     </div>
   )
 }

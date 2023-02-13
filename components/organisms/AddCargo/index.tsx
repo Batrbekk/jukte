@@ -12,7 +12,7 @@ import { getCookie } from "cookies-next";
 import { AddCargoProps } from "./types";
 import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
 
-export const AddCargo = ({onSetStep}: AddCargoProps) => {
+export const AddCargo = ({onSetStep, currentStep}: AddCargoProps) => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const myCompany = getCookie('companyName');
   const token = getCookie('accessToken');
@@ -27,6 +27,7 @@ export const AddCargo = ({onSetStep}: AddCargoProps) => {
   const [distance, setDistance] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
   const [to, setTo] = useState<string>('');
+  const [freeCar, setFreeCar] = useState<boolean>(false);
 
   //OrderDesc setState
   const [cargoDesc, setCargoDesc] = useState<string>('');
@@ -100,6 +101,14 @@ export const AddCargo = ({onSetStep}: AddCargoProps) => {
 
   const getInfoNextStepStatus = (nextStepStatus: boolean) => {
     setDisableNext(nextStepStatus);
+  };
+
+  const getFrom = (from: string) => {
+    setFrom(from);
+  };
+
+  const getFreeCarStatus = (freeCarStatus: boolean) => {
+    setFreeCar(freeCarStatus);
   };
 
   const toCreateOrder = async () => {
@@ -185,12 +194,16 @@ export const AddCargo = ({onSetStep}: AddCargoProps) => {
       <div className="mt-4">
         {activeStep === 0 && (
           <OrderRoute
+            currentStep={currentStep}
+            getFrom={getFrom}
             getInfoFromMap={getInfoFromMap}
             onNextStepStatus={getInfoNextStepStatus}
+            onFreeCarStatus={getFreeCarStatus}
           />
         )}
         {activeStep === 1 && (
           <OrderDesc
+            currentStep={currentStep}
             getTransport={getTransport}
             getOrderDesc={getOrderDesc}
             getProduct={getProduct}
@@ -203,6 +216,7 @@ export const AddCargo = ({onSetStep}: AddCargoProps) => {
             distance={distance}
             onNextStepStatus={getInfoNextStepStatus}
             duration={duration}
+            freeCar={freeCar}
           />
         )}
         {activeStep === 2 && (

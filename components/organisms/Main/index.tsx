@@ -132,13 +132,13 @@ export const MainView = () => {
         <CargoOrdersView />
       )}
       {currentStep === ItemTypeProps.ADD_TRUCK && (
-        <AddTruck onSetStep={setStep} />
+        <AddTruck onSetStep={setStep} currentStep={currentStep} />
       )}
       {currentStep === ItemTypeProps.SEARCH_CARGO && (
         <SearchTruck />
       )}
       {currentStep === ItemTypeProps.ADD_CARGO && (
-        <AddCargo onSetStep={setStep} />
+        <AddCargo onSetStep={setStep} currentStep={currentStep} />
       )}
       <Modal open={exitModal} onClose={() => {
         setExitModal(false);
