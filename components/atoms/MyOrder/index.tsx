@@ -25,6 +25,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
   const role = getCookie('role');
   const [expanded, setExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   const deleteOrder = async () => {
     setLoading(true);
@@ -44,6 +45,26 @@ export const MyOrder = ({order}: MyOrderProps) => {
         location.reload();
       }
       return await response.json();
+    }
+  };
+
+  const confirmOrder = async () => {
+    setConfirmLoading(true);
+    if (token) {
+      const response = await fetch(`https://api.jukte.kz/orders/finish/${order._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          token: token.toString()
+        },
+      });
+      if (response.ok) {
+        setLoading(false);
+        location.reload();
+      } else {
+        setLoading(false);
+        location.reload();
+      }
     }
   };
 
@@ -78,7 +99,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
             {order.ownerCompany}
           </Typography>
         </div>
-        {role !== 'driver' && (
+        {role !== 'driver' && role === order.ownerRole && (
           <div className="flex items-center">
             <ProductionQuantityLimitsIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
@@ -144,7 +165,9 @@ export const MyOrder = ({order}: MyOrderProps) => {
         )}
         <div>
           <Typography>
-            Детали перевозок: {role === 'driver' ? order.product : order.description}
+            {role !== order.ownerRole ?
+              `Детали перевозок: ${order.product}` :
+              `Детали перевозок: ${role === 'driver' ? order.product : order.description}`}
           </Typography>
         </div>
         <div className="mt-4 flex flex-col gap-y-3">
@@ -164,15 +187,29 @@ export const MyOrder = ({order}: MyOrderProps) => {
               </LoadingButton>
             </>
           )}
+
+          {role !== order.ownerRole && order.ownerRole === 'driver' && order.status === 'inProgress' && (
+            <LoadingButton
+              variant="outlined"
+              loading={loading}
+              disabled={true}
+              color="success"
+              className="w-full"
+              onClick={() => {
+                console.log('finish')
+              }}
+            >
+              Водитель в пути
+            </LoadingButton>
+          )}
+
           {myPhone === order.ownerPhone && order.status === 'inProgress' && (
             <LoadingButton
               variant="outlined"
               loading={loading}
               color="success"
               className="w-full"
-              onClick={() => {
-                console.log('finish')
-              }}
+              onClick={confirmOrder}
             >
               Завершить поездку
             </LoadingButton>
