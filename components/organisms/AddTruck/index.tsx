@@ -14,7 +14,6 @@ import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
 
 export const AddTruck = ({onSetStep}: AddTruckProps) => {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const myTransport = getCookie('myTransport');
   const myCompany = getCookie('companyName');
   const token = getCookie('accessToken');
   const maxSteps = 3;
@@ -38,6 +37,8 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
   const [weight, setWeight] = useState<string>('');
   const [cub, setCub] = useState<string>('');
   const [price, setPrice] = useState<string>('');
+  const [product, setProduct] = useState<string>('');
+  const [transport, setTransport] = useState<string>('');
 
   const [disabledNext, setDisableNext] = useState<boolean>(false);
   const [loadOrder, setLoadOrder] = useState<boolean>(false);
@@ -62,8 +63,12 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
     setTo(to);
   };
 
-  const getFrom = (from: string) => {
-    setFrom(from);
+  const getProduct = (product: string) => {
+    setProduct(product);
+  };
+
+  const getTransport = (transport: string) => {
+    setTransport(transport);
   };
 
   const getOrderDesc = (orderDesc: string) => {
@@ -98,10 +103,6 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
     setDisableNext(nextStepStatus);
   };
 
-  const getFreeCarStatus = (freeCarStatus: boolean) => {
-    setFreeCar(freeCarStatus);
-  };
-
   const toCreateOrder = async () => {
     if(token) {
       const response = await fetch('https://api.jukte.kz/orders/', {
@@ -116,7 +117,7 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
           price: price,
           weight: weight,
           date: `${startDate} - ${endDate}`,
-          type: myTransport,
+          type: transport,
           from: from,
           to: freeCar ? 'На все направления' : to,
           loadType: cargoLoad,
@@ -186,10 +187,8 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
       <div className="mt-4">
         {activeStep === 0 && (
           <OrderRoute
-            getFrom={getFrom}
             getInfoFromMap={getInfoFromMap}
             onNextStepStatus={getInfoNextStepStatus}
-            onFreeCarStatus={getFreeCarStatus}
           />
         )}
         {activeStep === 1 && (
@@ -203,8 +202,9 @@ export const AddTruck = ({onSetStep}: AddTruckProps) => {
             getPrice={getPrice}
             distance={distance}
             onNextStepStatus={getInfoNextStepStatus}
-            freeCar={freeCar}
             duration={duration}
+            getProduct={getProduct}
+            getTransport={getTransport}
           />
         )}
         {activeStep === 2 && (
