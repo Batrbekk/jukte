@@ -1,6 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from "@mui/material/FormControlLabel";
+import React, { useCallback, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -9,8 +7,7 @@ import RemoveRoadIcon from '@mui/icons-material/RemoveRoad';
 import { MapComponent } from "../../atoms/MapComponent";
 import { OrderRouteProps } from "./types";
 
-export const OrderRoute = ({getInfoFromMap, onNextStepStatus, onFreeCarStatus, getFrom} : OrderRouteProps) => {
-  const [checked, setChecked] = useState<boolean>(false);
+export const OrderRoute = ({getInfoFromMap, onNextStepStatus} : OrderRouteProps) => {
   const [countTransfer, setCountTransfer] = useState<number>(0);
   const [from, setFrom] = useState<string>('');
   const [transfer, setTransfer] = useState<string>('');
@@ -20,12 +17,6 @@ export const OrderRoute = ({getInfoFromMap, onNextStepStatus, onFreeCarStatus, g
   const [to, setTo] = useState<string>('');
   const [distance, setDistance] = useState<string>('');
   const [duration, setDuration] = useState<string>('');
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-    setTo('');
-    onFreeCarStatus(event.target.checked);
-  };
 
   const addTransfer = useCallback(() => {
     setCountTransfer(countTransfer + 1);
@@ -49,7 +40,6 @@ export const OrderRoute = ({getInfoFromMap, onNextStepStatus, onFreeCarStatus, g
 
   const onChangeFrom = useCallback((event: React.ChangeEvent< HTMLInputElement>) => {
     setFrom(event.target.value);
-    getFrom(event.target.value);
   }, []);
 
   const onChangeTransfer = useCallback((event: React.ChangeEvent< HTMLInputElement>) => {
@@ -79,38 +69,15 @@ export const OrderRoute = ({getInfoFromMap, onNextStepStatus, onFreeCarStatus, g
   }
 
   useEffect(() => {
-    if (checked) {
-      if (from) {
-        onNextStepStatus(true);
-      } else {
-        onNextStepStatus(false);
-      }
+    if (to && from && distance && duration) {
+      onNextStepStatus(true);
     } else {
-      if (distance && duration && to) {
-        onNextStepStatus(true);
-      } else {
-        onNextStepStatus(false);
-      }
+      onNextStepStatus(false);
     }
-  }, [checked, from, distance, duration, to]);
+  }, [to, from, distance, duration]);
 
   return (
     <div className="flex flex-col gap-4">
-      <FormControlLabel
-        className="p-2 bg-[#00abc2] w-full mr-0 ml-0 rounded text-white"
-        control={
-          <Checkbox
-            className="p-0 mr-2"
-            checked={checked}
-            sx={{
-              '& .MuiSvgIcon-root': { fontSize: 32, color: '#fff' },
-            }}
-            onChange={ handleChange }
-            inputProps={{ 'aria-label': 'controlled' }}
-          />
-        }
-        label="Заявка свободной машины"
-      />
       <TextField
         id="from"
         label="Откуда"
@@ -119,86 +86,84 @@ export const OrderRoute = ({getInfoFromMap, onNextStepStatus, onFreeCarStatus, g
         value={from}
         onChange={onChangeFrom}
       />
-      {!checked && (
-        <>
-          {countTransfer >= 1 && (
-            <TextField
-              id="transfer1"
-              label="Промежуточный пункт"
-              variant="outlined"
-              value={transfer}
-              onChange={onChangeTransfer}
-            />
-          )}
-          {countTransfer >= 2 && (
-            <TextField
-              id="transfer2"
-              label="Промежуточный пункт"
-              variant="outlined"
-              value={transfer2}
-              onChange={onChangeTransfer2}
-            />
-          )}
-          {countTransfer >= 3 && (
-            <TextField
-              id="transfer3"
-              label="Промежуточный пункт"
-              variant="outlined"
-              value={transfer3}
-              onChange={onChangeTransfer3}
-            />
-          )}
-          {countTransfer >= 4 && (
-            <TextField
-              id="transfer4"
-              label="Промежуточный пункт"
-              variant="outlined"
-              value={transfer4}
-              onChange={onChangeTransfer4}
-            />
-          )}
-          {countTransfer !== 4 && (
-            <IconButton
-              aria-label="addTransfer"
-              className="text-[#00ABC2] dark:text-white"
-              onClick={addTransfer}
-            >
-              <AddRoadIcon className="mr-2" />
-              <Typography>
-                Добавить промежуточный пункт
-              </Typography>
-            </IconButton>
-          )}
-          {countTransfer > 0 && (
-            <IconButton
-              aria-label="deleteTransfer"
-              className="text-[#00ABC2] dark:text-white"
-              onClick={deleteTransfer}
-            >
-              <RemoveRoadIcon className="mr-2" />
-              <Typography>
-                Удалить промежуточный пункт
-              </Typography>
-            </IconButton>
-          )}
+      <>
+        {countTransfer >= 1 && (
           <TextField
-            id="to"
-            label="Куда"
+            id="transfer1"
+            label="Промежуточный пункт"
             variant="outlined"
-            value={to}
-            onChange={onChangeTo}
+            value={transfer}
+            onChange={onChangeTransfer}
           />
-          <MapComponent
-            from={from}
-            transfer={transfer}
-            transfer2={transfer2}
-            transfer3={transfer3}
-            transfer4={transfer4}
-            to={to}
-            getInfoMap={getMapInfo}
+        )}
+        {countTransfer >= 2 && (
+          <TextField
+            id="transfer2"
+            label="Промежуточный пункт"
+            variant="outlined"
+            value={transfer2}
+            onChange={onChangeTransfer2}
           />
-        </>
-      )}
+        )}
+        {countTransfer >= 3 && (
+          <TextField
+            id="transfer3"
+            label="Промежуточный пункт"
+            variant="outlined"
+            value={transfer3}
+            onChange={onChangeTransfer3}
+          />
+        )}
+        {countTransfer >= 4 && (
+          <TextField
+            id="transfer4"
+            label="Промежуточный пункт"
+            variant="outlined"
+            value={transfer4}
+            onChange={onChangeTransfer4}
+          />
+        )}
+        {countTransfer !== 4 && (
+          <IconButton
+            aria-label="addTransfer"
+            className="text-[#00ABC2] dark:text-white"
+            onClick={addTransfer}
+          >
+            <AddRoadIcon className="mr-2" />
+            <Typography>
+              Добавить промежуточный пункт
+            </Typography>
+          </IconButton>
+        )}
+        {countTransfer > 0 && (
+          <IconButton
+            aria-label="deleteTransfer"
+            className="text-[#00ABC2] dark:text-white"
+            onClick={deleteTransfer}
+          >
+            <RemoveRoadIcon className="mr-2" />
+            <Typography>
+              Удалить промежуточный пункт
+            </Typography>
+          </IconButton>
+        )}
+        <TextField
+          id="to"
+          label="Куда"
+          variant="outlined"
+          value={to}
+          onChange={onChangeTo}
+        />
+        <MapComponent
+          from={from}
+          transfer={transfer}
+          transfer2={transfer2}
+          transfer3={transfer3}
+          transfer4={transfer4}
+          to={to}
+          getInfoMap={getMapInfo}
+        />
+      </>
     </div>
   )
 }

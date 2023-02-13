@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Navbar } from "../../molecules/Navbar";
+import React, {useCallback, useEffect, useState} from "react";
+import {Navbar} from "../../molecules/Navbar";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
@@ -8,16 +8,18 @@ import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { getCookie, setCookie } from "cookies-next";
-import { UserInfoProps } from "./types/UserInfo";
-import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
-import { MainComponent } from "./libs/MainComponent";
-import { Faq } from "../Faq";
-import { useRouter } from "next/router";
-import { Profile } from "../Profile";
-import { MyOrdersView } from "../MyOrders";
-import { CargoOrdersView } from "../CargoOrders";
-import { AddTruck } from "../AddTruck";
+import {getCookie, setCookie} from "cookies-next";
+import {UserInfoProps} from "./types/UserInfo";
+import {ItemTypeProps} from "../../molecules/NavList/type/itemType";
+import {MainComponent} from "./libs/MainComponent";
+import {Faq} from "../Faq";
+import {useRouter} from "next/router";
+import {Profile} from "../Profile";
+import {MyOrdersView} from "../MyOrders";
+import {CargoOrdersView} from "../CargoOrders";
+import {AddTruck} from "../AddTruck";
+import {SearchTruck} from "../SearchTruck";
+import {AddCargo} from "../AddCargo";
 
 export const MainView = () => {
   const token = getCookie('accessToken');
@@ -67,6 +69,7 @@ export const MainView = () => {
       setCookie('myPhone', r.phone);
       setCookie('myTransport', r.transport.type);
       setCookie('companyName', r.company.name);
+      setCookie('role', r.role);
       setUserInfo(r);
     });
   }, [token]);
@@ -89,7 +92,9 @@ export const MainView = () => {
                 />
               )}
             </div>
-            <IconButton className="p-0" href="#">
+            <IconButton className="p-0" href="#" onClick={() => {
+              setStep(ItemTypeProps.SEARCH_CARGO)
+            }}>
               <SearchIcon />
             </IconButton>
           </div>
@@ -128,6 +133,12 @@ export const MainView = () => {
       )}
       {currentStep === ItemTypeProps.ADD_TRUCK && (
         <AddTruck onSetStep={setStep} />
+      )}
+      {currentStep === ItemTypeProps.SEARCH_CARGO && (
+        <SearchTruck />
+      )}
+      {currentStep === ItemTypeProps.ADD_CARGO && (
+        <AddCargo onSetStep={setStep} />
       )}
       <Modal open={exitModal} onClose={() => {
         setExitModal(false);

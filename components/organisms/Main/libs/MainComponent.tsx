@@ -34,7 +34,9 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
           </Typography>
         </div>
         <div className="flex items-start justify-center gap-x-8 mt-8">
-          <div className="text-center w-1/3">
+          <div className="text-center w-1/3" onClick={(event) => {
+            onClickButton(ItemTypeProps.ADD_CARGO);
+          }}>
             <IconButton className="rounded-full bg-black dark:bg-white">
               <UploadIcon className="fill-white dark:fill-black" />
             </IconButton>
@@ -43,7 +45,7 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
             </Typography>
           </div>
           <div className="text-center w-1/3" onClick={(event) => {
-            onClickButton(ItemTypeProps.ADD_TRUCK)
+            onClickButton(ItemTypeProps.ADD_TRUCK);
           }}>
             <IconButton className="rounded-full bg-[#00abc2]">
               <LocalShippingIcon className="fill-white" />
@@ -53,7 +55,7 @@ export const MainComponent = ({name, surname, role, onSetStep} : UserMainCard) =
             </Typography>
           </div>
           <div className="text-center w-1/3" onClick={(event) => {
-            onClickButton(ItemTypeProps.USER_DATA)
+            onClickButton(ItemTypeProps.USER_DATA);
           }}>
             <IconButton className="rounded-full bg-black dark:bg-white">
               <AccountBoxIcon className="fill-white dark:fill-black" />

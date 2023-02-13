@@ -15,11 +15,13 @@ import RouteIcon from '@mui/icons-material/Route';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import RvHookupIcon from '@mui/icons-material/RvHookup';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { getCookie } from "cookies-next";
 
 export const MyOrder = ({order}: MyOrderProps) => {
   const token = getCookie('accessToken');
   const myPhone = getCookie('myPhone');
+  const role = getCookie('')
   const [expanded, setExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -75,6 +77,14 @@ export const MyOrder = ({order}: MyOrderProps) => {
             {order.ownerCompany}
           </Typography>
         </div>
+        {role !== 'driver' && (
+          <div className="flex items-center">
+            <ProductionQuantityLimitsIcon className="mr-2 fill-[#00abc2]" />
+            <Typography variant="body1">
+              {order.product}
+            </Typography>
+          </div>
+        )}
         <div className="flex items-center">
           <PaidIcon className="mr-2 fill-[#00abc2]" />
           <Typography variant="body1">
@@ -111,7 +121,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
           <div className="flex items-center">
             <AccessTimeFilledIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
-              {order.description}
+              {role === 'driver' ? order.description :order.detail }
             </Typography>
           </div>
         )}
@@ -125,7 +135,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
         )}
         <div>
           <Typography>
-            Детали перевозок: {order.product}
+            Детали перевозок: {role === 'driver' ? order.product : order.description}
           </Typography>
         </div>
         <div className="mt-4 flex flex-col gap-y-3">

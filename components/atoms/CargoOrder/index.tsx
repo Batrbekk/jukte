@@ -19,6 +19,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import RvHookupIcon from '@mui/icons-material/RvHookup';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 
 export const CargoOrder = ({order}: CargoOrderProps) => {
   const token = getCookie('accessToken');
@@ -81,6 +82,12 @@ export const CargoOrder = ({order}: CargoOrderProps) => {
             </Typography>
           </div>
           <div className="flex items-center">
+            <ProductionQuantityLimitsIcon className="mr-2 fill-[#00abc2]" />
+            <Typography variant="body1">
+              {order.product}
+            </Typography>
+          </div>
+          <div className="flex items-center">
             <PaidIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
               {order.price} ₸
@@ -112,11 +119,11 @@ export const CargoOrder = ({order}: CargoOrderProps) => {
               {order.distance} км
             </Typography>
           </div>
-          {order.description !== '' && (
+          {order.detail !== '' && (
             <div className="flex items-center">
               <AccessTimeFilledIcon className="mr-2 fill-[#00abc2]" />
               <Typography variant="body1">
-                {order.description}
+                {order.detail}
               </Typography>
             </div>
           )}
@@ -130,7 +137,7 @@ export const CargoOrder = ({order}: CargoOrderProps) => {
           )}
           <div>
             <Typography>
-              Детали перевозок: {order.product}
+              Детали перевозок: {order.description}
             </Typography>
           </div>
           <div className="mt-4 flex flex-col gap-y-3">
