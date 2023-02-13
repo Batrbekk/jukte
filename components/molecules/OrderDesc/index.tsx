@@ -175,7 +175,7 @@ export const OrderDesc = ({
 
   return (
     <div className="flex flex-col gap-4">
-      {role !== 'driver' || currentStep === ItemTypeProps.ADD_CARGO && (
+      {currentStep === ItemTypeProps.ADD_CARGO && (
         <TextField
           id="product-desc"
           label="Наименование товара"
@@ -235,7 +235,7 @@ export const OrderDesc = ({
           />
         </div>
       </div>
-      {role !== 'driver' || currentStep === ItemTypeProps.ADD_CARGO && (
+      {currentStep === ItemTypeProps.ADD_CARGO && (
         <FormControl fullWidth>
           <InputLabel id="select-label">Тип транспорта</InputLabel>
           <Select
