@@ -148,7 +148,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
           </Typography>
         </div>
         <div className="mt-4 flex flex-col gap-y-3">
-          {myPhone === order.ownerPhone && (
+          {myPhone === order.ownerPhone && order.status !== 'inProgress' && (
             <>
               <LoadingButton
                 variant="outlined"
@@ -177,7 +177,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
               Завершить поездку
             </LoadingButton>
           )}
-          {myPhone !== order.ownerPhone && order.status === 'inProgress' && (
+          {myPhone !== order.ownerPhone && order.status === 'inProgress' && role === order.ownerRole && (
             <LoadingButton
               variant="outlined"
               loading={loading}
