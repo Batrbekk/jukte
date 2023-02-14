@@ -105,49 +105,6 @@ export const Profile = () => {
                 </li>
               </ul>
             </Paper>
-            <Paper className="mt-4 p-4">
-              <Typography variant="subtitle1" className="font-bold">
-                Данные машины
-              </Typography>
-              <ul className="flex flex-col gap-4 mt-2">
-                <li>
-                  <TextField
-                    id="standard-basic"
-                    fullWidth
-                    variant="standard"
-                    label="Гос.номер машины"
-                    value={userInfo.company?.director?.name}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </li>
-                <li>
-                  <TextField
-                    id="standard-basic"
-                    fullWidth
-                    variant="standard"
-                    label="Тип транспорта"
-                    value={userInfo.transport?.type}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </li>
-                <li>
-                  <TextField
-                    id="standard-basic"
-                    fullWidth
-                    variant="standard"
-                    label="Грузоподъемность"
-                    value={userInfo.transport?.weight + ' тонн'}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </li>
-              </ul>
-            </Paper>
           </>
         )
       )}
