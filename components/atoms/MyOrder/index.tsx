@@ -26,6 +26,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [completedLoading, setCompletedLoading] = useState<boolean>(false);
 
   const deleteOrder = async () => {
     setLoading(true);
@@ -59,10 +60,30 @@ export const MyOrder = ({order}: MyOrderProps) => {
         },
       });
       if (response.ok) {
-        setLoading(false);
+        setConfirmLoading(false);
         location.reload();
       } else {
-        setLoading(false);
+        setConfirmLoading(false);
+        location.reload();
+      }
+    }
+  };
+
+  const completedOrder = async () => {
+    setCompletedLoading(true);
+    if (token) {
+      const response = await fetch(`https://api.jukte.kz/orders/approve/${order._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+          token: token.toString()
+        },
+      });
+      if (response.ok) {
+        setCompletedLoading(false);
+        location.reload();
+      } else {
+        setCompletedLoading(false);
         location.reload();
       }
     }
@@ -86,6 +107,12 @@ export const MyOrder = ({order}: MyOrderProps) => {
           )}
           {order.status === 'inProgress' && (
             <Chip label="В процессе" variant="outlined" color="warning" className="mr-2" />
+          )}
+          {order.status === 'finished' && (
+            <Chip label="Ожидание" variant="outlined" color="warning" className="mr-2" />
+          )}
+          {order.status === 'completed' && (
+            <Chip label="Завершен" variant="outlined" color="success" className="mr-2" />
           )}
           <Typography variant="body2" className="">
             {order.from} - {order.to}
@@ -171,7 +198,18 @@ export const MyOrder = ({order}: MyOrderProps) => {
           </Typography>
         </div>
         <div className="mt-4 flex flex-col gap-y-3">
-          {myPhone === order.ownerPhone && order.status !== 'inProgress' && (
+          {role === 'logistician' && order.status === 'finished' && (
+            <LoadingButton
+              variant="outlined"
+              loading={completedLoading}
+              color="success"
+              className="w-full"
+              onClick={completedOrder}
+            >
+              Подтвердить завершение заявки
+            </LoadingButton>
+          )}
+          {myPhone === order.ownerPhone && order.status === 'open' && (
             <>
               <LoadingButton
                 variant="outlined"
@@ -202,11 +240,10 @@ export const MyOrder = ({order}: MyOrderProps) => {
               Водитель в пути
             </LoadingButton>
           )}
-
           {myPhone === order.ownerPhone && order.status === 'inProgress' && (
             <LoadingButton
               variant="outlined"
-              loading={loading}
+              loading={confirmLoading}
               color="success"
               className="w-full"
               onClick={confirmOrder}
@@ -217,12 +254,10 @@ export const MyOrder = ({order}: MyOrderProps) => {
           {myPhone !== order.ownerPhone && order.status === 'inProgress' && role === order.ownerRole && (
             <LoadingButton
               variant="outlined"
-              loading={loading}
+              loading={confirmLoading}
               color="success"
               className="w-full"
-              onClick={() => {
-                console.log('finish')
-              }}
+              onClick={confirmOrder}
             >
               Завершить поездку
             </LoadingButton>

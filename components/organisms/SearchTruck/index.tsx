@@ -13,6 +13,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { CargoOrdersView } from "../CargoOrders";
 import { getCookie } from "cookies-next";
 import { transportList } from "../../../public/types/transport";
+import {TransportOrdersView} from "../TransportOrders";
 
 export const SearchTruck = () => {
   const role = getCookie('role');
@@ -48,7 +49,7 @@ export const SearchTruck = () => {
   return(
     <>
       {searchCargo ? (
-        role === 'logistician' ? <p>asd</p> : <CargoOrdersView />
+        role === 'logistician' ? <TransportOrdersView /> : <CargoOrdersView />
         ) : (
         <div className="w-full px-4 mt-4">
           <div className="flex items-center">
