@@ -82,9 +82,9 @@ export const OrderDesc = ({
 
   const onCalcPrice = useCallback(() => {
     let corrDistance = parseInt(distance.replace(/\s/g, ''));
-    if (role === 'driver' && currentStep === ItemTypeProps.ADD_TRUCK) {
+    if (transport) {
       let transportObj = transportList.filter(obj => {
-        return obj.label === myTransport;
+        return obj.label === transport;
       });
       let transportPrice = transportObj[0].price;
       if (transportPrice === 25) {
@@ -98,44 +98,6 @@ export const OrderDesc = ({
         getPrice(totalPrice + ' ₸');
       }
       setCalcRes(true);
-    }
-    else if (role === 'driver' && currentStep === ItemTypeProps.ADD_CARGO) {
-      if (transport) {
-        let transportObj = transportList.filter(obj => {
-          return obj.label === transport;
-        });
-        let transportPrice = transportObj[0].price;
-        if (transportPrice === 25) {
-          let totalPrice = transportPrice * parseFloat(weight) * corrDistance;
-          setPrice(totalPrice + ' ₸');
-          getPrice(totalPrice + ' ₸');
-        }
-        else {
-          let totalPrice = corrDistance * transportPrice;
-          setPrice(totalPrice + ' ₸');
-          getPrice(totalPrice + ' ₸');
-        }
-        setCalcRes(true);
-      }
-    }
-    else {
-      if (transport) {
-        let transportObj = transportList.filter(obj => {
-          return obj.label === transport;
-        });
-        let transportPrice = transportObj[0].price;
-        if (transportPrice === 25) {
-          let totalPrice = transportPrice * parseFloat(weight) * corrDistance;
-          setPrice(totalPrice + ' ₸');
-          getPrice(totalPrice + ' ₸');
-        }
-        else {
-          let totalPrice = corrDistance * transportPrice;
-          setPrice(totalPrice + ' ₸');
-          getPrice(totalPrice + ' ₸');
-        }
-        setCalcRes(true);
-      }
     }
   }, [myTransport, transport]);
 
@@ -235,24 +197,22 @@ export const OrderDesc = ({
           />
         </div>
       </div>
-      {currentStep === ItemTypeProps.ADD_CARGO && (
-        <FormControl fullWidth>
-          <InputLabel id="select-label">Тип транспорта</InputLabel>
-          <Select
-            labelId="cargo-load"
-            id="cargo-load"
-            value={transport}
-            label="Вес груза"
-            onChange={onChangeTransport}
-          >
-            {transportList.map((item, index) => (
-              <MenuItem key={index} value={item.label}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
+      <FormControl fullWidth>
+        <InputLabel id="select-label">Тип транспорта</InputLabel>
+        <Select
+          labelId="cargo-load"
+          id="cargo-load"
+          value={transport}
+          label="Вес груза"
+          onChange={onChangeTransport}
+        >
+          {transportList.map((item, index) => (
+            <MenuItem key={index} value={item.label}>
+              {item.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <FormControl fullWidth>
         <InputLabel id="select-label">Тип погрузки</InputLabel>
         <Select

@@ -14,7 +14,6 @@ import { ItemTypeProps } from "../../molecules/NavList/type/itemType";
 
 export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const myTransport = getCookie('myTransport');
   const token = getCookie('accessToken');
   const ownerCompany = getCookie('ownerCompany');
   const maxSteps = 3;
@@ -126,7 +125,7 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
           price: price,
           weight: weight,
           date: `${startDate} - ${endDate}`,
-          type: myTransport,
+          type: transport,
           from: from,
           to: freeCar ? 'На все направления' : to,
           loadType: cargoLoad,
@@ -256,11 +255,11 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
               </div>
             </>
           ) : (
-            <>
+            <div className="flex flex-col gap-4">
               <Skeleton variant="rounded" className="w-full" height={200} />
               <Skeleton variant="rounded" className="w-full" height={36} />
               <Skeleton variant="rounded" className="w-full" height={36} />
-            </>
+            </div>
           )
         )}
       </div>

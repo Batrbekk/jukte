@@ -35,6 +35,25 @@ input {
     }
 }
 
+.biometric-result-success {
+    display: none;
+}
+
+.bv-language-button {
+    display: none;
+}
+.MuiRadio-root.Mui-checked {
+    color: #00abc2 !important;
+}
+
+.bv-close-button {
+    display: none;
+}
+
+.MuiDialog-paper {
+    margin: 1rem!important;
+}
+
 .success-animation {
     .checkmark {
         width: 100px;

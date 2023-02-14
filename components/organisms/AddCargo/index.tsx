@@ -254,11 +254,11 @@ export const AddCargo = ({onSetStep, currentStep}: AddCargoProps) => {
               </div>
             </>
           ) : (
-            <>
+            <div className="flex flex-col gap-4">
               <Skeleton variant="rounded" className="w-full" height={200} />
               <Skeleton variant="rounded" className="w-full" height={36} />
               <Skeleton variant="rounded" className="w-full" height={36} />
-            </>
+            </div>
           )
         )}
       </div>
