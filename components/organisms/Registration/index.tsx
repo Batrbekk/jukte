@@ -6,7 +6,6 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import CircularProgress from "@mui/material/CircularProgress";
 import Fab from "@mui/material/Fab";
@@ -30,6 +29,7 @@ import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import InputMask from 'react-input-mask';
 import { useRouter } from "next/router";
 import { MuiOtpInput } from 'mui-one-time-password-input'
+import Script from "next/script";
 
 export const RegistrationView = () => {
   const [phone, setPhone] = useState<string>('');
@@ -49,9 +49,18 @@ export const RegistrationView = () => {
   const [otpCounter, setOtpCounter] = useState<number>(60);
   const [resentOtp, setResentOtp] = useState(false);
   const [errMessage, setErrMessage] = useState<string>('');
+  const [DistancePackage, setDistancePackage] = useState<any>();
   const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiQVBJIEtFWSIsImV4cCI6MjI3NzY5OTgxNSwiaWF0IjoxNjcyODk5ODE1LCJqdGkiOiJjYzczM2IwYzA1MTU0YjljOGFmYWVjMzg2YTFhMzU3ZCIsIm9yZ2FuaXphdGlvbl9pZCI6IjYzZjAyMDMzLTBmZmMtNGZmMC04OTJmLTA2MGM2YTAxNjg2OSJ9.40wz3ZgS9i64FvXh2GeQjgKs3jNIB7HjL3OA5oXZgdU';
 
   const router = useRouter();
+
+  useEffect(() => {
+    fetch('https://test.biometric.kz/liveness-detection/DistancePackage.js').then((r) => {
+      r.json();
+    }).then((data) => {
+      console.log(data);
+    })
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -257,6 +266,7 @@ export const RegistrationView = () => {
 
   return (
     <div className="w-full px-4 flex flex-col gap-4">
+      <Script src="https://test.biometric.kz/liveness-detection/DistancePackage.js" />
       {biometriaView && (
         <>
           <div className="mb-2 flex items-center relative z-[1200]">
