@@ -225,7 +225,6 @@ export const MyOrder = ({order}: MyOrderProps) => {
               </LoadingButton>
             </>
           )}
-
           {role !== order.ownerRole && order.ownerRole === 'driver' && order.status === 'inProgress' && (
             <LoadingButton
               variant="outlined"
@@ -233,14 +232,22 @@ export const MyOrder = ({order}: MyOrderProps) => {
               disabled={true}
               color="success"
               className="w-full"
-              onClick={() => {
-                console.log('finish')
-              }}
             >
               Водитель в пути
             </LoadingButton>
           )}
-          {myPhone === order.ownerPhone && order.status === 'inProgress' && (
+          {role === 'logistician' && order.status === 'inProgress' && (
+            <LoadingButton
+              variant="outlined"
+              loading={loading}
+              disabled={true}
+              color="success"
+              className="w-full"
+            >
+              Водитель в пути
+            </LoadingButton>
+          )}
+          {myPhone === order.ownerPhone && order.status === 'inProgress' && role === 'driver' && (
             <LoadingButton
               variant="outlined"
               loading={confirmLoading}
@@ -251,7 +258,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
               Завершить поездку
             </LoadingButton>
           )}
-          {myPhone !== order.ownerPhone && order.status === 'inProgress' && role === order.ownerRole && (
+          {myPhone !== order.ownerPhone && order.status === 'inProgress' && role !== order.ownerRole && (
             <LoadingButton
               variant="outlined"
               loading={confirmLoading}
