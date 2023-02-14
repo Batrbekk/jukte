@@ -44,7 +44,7 @@ export const RegistrationView = () => {
   const [supportModal, setSupportModal] = useState<boolean>(false);
   const [successModal, setSuccessModal] = useState<boolean>(false);
   const [otp, setOtp] = useState<string>('');
-  const [biometriaResult, setBiometriaResult] = useState();
+  const [biometriaResult, setBiometriaResult] = useState<any>();
   const [showOtp, setShowOtp] = useState(false);
   const [otpCounter, setOtpCounter] = useState<number>(60);
   const [resentOtp, setResentOtp] = useState(false);
