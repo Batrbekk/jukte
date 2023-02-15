@@ -6,6 +6,10 @@ import Pagination from "@mui/material/Pagination";
 import { getCookie } from "cookies-next";
 import { Orders } from "../Main/types/Orders";
 import { MyOrder } from "../../atoms/MyOrder";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const MyOrdersView = () => {
   const token = getCookie('accessToken');
@@ -14,6 +18,7 @@ export const MyOrdersView = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [countPage, setCountPage] = useState(0);
   const [paginationPage, setPaginationPage] = useState<number>(1);
+  const [showSuccessOrders, setShowSuccessOrders] = useState<boolean>(false);
 
   useEffect(() => {
     if (totalOrders>0) {
@@ -89,13 +94,41 @@ export const MyOrdersView = () => {
             <Chip label={'Количество: ' + totalOrders} variant="outlined" />
           </div>
           <div className="mt-4">
-            {archiveOrder && archiveOrder.data.orders.length > 0 ? (
-              archiveOrder.data.orders.map((order,index) => (
-                <MyOrder order={order} key={index}  />
-              ))
-            ): (
+            <Button
+              variant="outlined"
+              color="success"
+              className="w-full mb-4"
+              endIcon={showSuccessOrders ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
+              onClick={() => {
+                setShowSuccessOrders(!showSuccessOrders);
+              }}
+            >
+              Завершенные заявки
+            </Button>
+            {showSuccessOrders && (
+              archiveOrder && archiveOrder.data.orders.filter(order => order.status === 'completed').length > 0 ? (
+                archiveOrder.data.orders.filter(order => order.status === 'completed').map(filteredOrder => {
+                  return <MyOrder order={filteredOrder} key={filteredOrder._id} />
+                })
+              ) : (
+                <Typography variant="body1">
+                  Завершенных заявок нету
+                </Typography>
+              )
+            )}
+          </div>
+          <Divider className="my-4" />
+          <div>
+            <Typography variant="subtitle1" className="font-semibold mb-4">
+              Не завершенные заявки
+            </Typography>
+            {archiveOrder && archiveOrder.data.orders.filter(order => order.status !== 'completed').length > 0 ? (
+              archiveOrder.data.orders.filter(order => order.status !== 'completed').map(filteredOrder => {
+                return <MyOrder order={filteredOrder} key={filteredOrder._id} />
+              })
+            ) : (
               <Typography variant="body1">
-                У вас нету заявок
+                Незавершенных заявок нету
               </Typography>
             )}
           </div>

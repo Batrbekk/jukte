@@ -25,6 +25,7 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import WarningIcon from '@mui/icons-material/Warning';
 // @ts-ignore
 import InputMask from 'react-input-mask';
 import { useRouter } from "next/router";
@@ -242,7 +243,7 @@ export const RegistrationView = () => {
         phone: phone,
         password: password,
         transportWeight: 20,
-        transportType: "Груз",
+        transportType: "Транспорт",
         role: role,
         name: name,
         surname: surname,
@@ -300,20 +301,23 @@ export const RegistrationView = () => {
           Просим вас вводить <span className="font-bold">корректные</span> и <span className="font-bold">официальные</span> данные
         </Typography>
       </div>
-      <div className="rounded text-white p-2 bg-[#00abc2] flex items-center gap-2">
-        <Checkbox
-          className="p-0"
-          sx={{
-            '& .MuiSvgIcon-root': { fontSize: 32, color: '#fff' },
-          }}
-          inputProps={{ 'aria-label': 'controlled' }}
-        />
-        <Typography variant="body2">
-          Я даю свое согласие на обработку личных данных
+      <div className="rounded text-white p-2 flex flex-col gap-2 bg-[#00abc2]">
+        <div className="flex items-center gap-2">
+          <FormControlLabel control={
+            <Checkbox
+              className=""
+              sx={{
+                '& .MuiSvgIcon-root': { fontSize: 32, color: '#fff' },
+              }}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />
+          } label="Я даю свое согласие на обработку личных данных" />
+        </div>
+        <div>
           <a href="/docs/law.pdf" className="underline font-bold" target="_blank">
             Политика конфиденциальности
           </a>
-        </Typography>
+        </div>
       </div>
       <FormControl className="">
         <FormLabel id="demo-controlled-radio-buttons-group" className="focus:text-white">Выберите свою деятельность</FormLabel>
@@ -397,6 +401,12 @@ export const RegistrationView = () => {
           }}
         />
       </div>
+      {errMessage && (
+        <Typography color="error" className="font-bold" variant="body1">
+          <WarningIcon color="error" className="mr-2" />
+          {errMessage}
+        </Typography>
+      )}
       <LoadingButton
         disabled={disabled}
         endIcon={<ArrowForwardIcon />}

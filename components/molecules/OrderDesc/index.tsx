@@ -47,6 +47,10 @@ export const OrderDesc = ({
   const [calcRes, setCalcRes] = useState<boolean>(false);
   const [price, setPrice] = useState<string>('');
 
+  useEffect(() => {
+
+  }, []);
+
   const onChangeProduct = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setProduct(event.target.value);
     getProduct(event.target.value);
@@ -191,7 +195,7 @@ export const OrderDesc = ({
             minDate={startDate}
             onChange={(date: Date) => {
               setEndDate(date);
-              getEndDate(moment(date).format('DD/MM/YYYY'))
+              getEndDate(moment(date).format('DD/MM/YYYY'));
             }}
             locale={ru}
           />
@@ -203,7 +207,7 @@ export const OrderDesc = ({
           labelId="cargo-load"
           id="cargo-load"
           value={transport}
-          label="Вес груза"
+          label="Тип транспорта"
           onChange={onChangeTransport}
         >
           {transportList.map((item, index) => (

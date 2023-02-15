@@ -175,7 +175,7 @@ export const NavList = ({role, onSetStep, currentStep}: NavListProps) => {
           <ListItemText primary="Техническая поддержка" />
         </ListItemButton>
         <ListItemButton
-          className="bg-red-400"
+          className="bg-red-400 text-white"
           selected={selectedItem === ItemTypeProps.EXIT}
           onClick={() => {
             setSelectedItem(ItemTypeProps.EXIT);
@@ -183,7 +183,7 @@ export const NavList = ({role, onSetStep, currentStep}: NavListProps) => {
           }}
         >
           <ListItemIcon>
-            <LogoutIcon />
+            <LogoutIcon className="fill-white" />
           </ListItemIcon>
           <ListItemText primary="Выход" />
         </ListItemButton>

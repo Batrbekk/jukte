@@ -95,7 +95,7 @@ export const TransportOrdersView = () => {
               ))
             ): (
               <Typography variant="body1">
-                Пожалуйста посмотрите позже, грузов временно нет.
+                Пожалуйста посмотрите позже, свободных машин нет.
               </Typography>
             )}
           </div>
