@@ -193,7 +193,7 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
                 <KeyboardArrowLeft />
                 Назад
               </Button>
-              <Button fullWidth variant="outlined" disabled={!disabledNext} onClick={handleNext}>
+              <Button fullWidth variant="outlined" disabled={!disabledNext} color="success" onClick={handleNext}>
                 Далее
                 <KeyboardArrowRight />
               </Button>
@@ -224,7 +224,7 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
                 <KeyboardArrowLeft />
                 Назад
               </Button>
-              <Button fullWidth variant="outlined" disabled={!disabledNext} onClick={handleNext}>
+              <Button fullWidth variant="outlined" disabled={!disabledNext} color="success" onClick={handleNext}>
                 Далее
                 <KeyboardArrowRight />
               </Button>

@@ -28,7 +28,7 @@ export const MapComponent = ({from, transfer, transfer2, transfer3, transfer4, t
     multiRoute.model.events.add('requestsuccess', function() {
       const activeRoute = multiRoute.getActiveRoute();
       if (activeRoute) {
-        getInfoMap(activeRoute.properties.get("duration").text, activeRoute.properties.get("distance").text)
+        getInfoMap(activeRoute.properties.get("duration").text, activeRoute.properties.get("distance").text);
       }
     });
   };
@@ -39,8 +39,8 @@ export const MapComponent = ({from, transfer, transfer2, transfer3, transfer4, t
         variant="outlined"
         loading={!refreshMap}
         onClick={() => {
-          setRefreshMap(false)
-          setTimeout(() => {setRefreshMap(true)}, 1000)
+          setRefreshMap(false);
+          setTimeout(() => {setRefreshMap(true)}, 1000);
         }}
       >
         Обновить маршрут
@@ -56,11 +56,21 @@ export const MapComponent = ({from, transfer, transfer2, transfer3, transfer4, t
       <div className={showMap ? 'rounded' : 'hidden'}>
         {refreshMap ? (
           <YMaps query={{apikey: '0fb09044-5132-48a3-8653-02425b40b298', load: "package.full"}} >
-            <Map onLoad={addRoute} instanceRef={(instance) => { map.current = instance; }} defaultState={{
-              center: [51.128207, 71.430420],
-              zoom: 8,
-              controls: ['zoomControl']
-            }} style={{width: '100%', height: '300px'}}>
+            <Map
+              onLoad={addRoute}
+              instanceRef={(instance) => {
+                map.current = instance;
+              }}
+              defaultState={{
+                center: [51.128207, 71.430420],
+                zoom: 9,
+                controls: ['zoomControl']
+              }}
+              style={{
+                width: '100%',
+                height: '300px'
+              }}
+            >
             </Map>
           </YMaps>
         ) : (
