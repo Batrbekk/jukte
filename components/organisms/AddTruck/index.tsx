@@ -120,8 +120,8 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
           token: token.toString()
         },
         body: JSON.stringify({
-          product: cargoDesc,
-          description: duration,
+          product: 'noProduct',
+          description: cargoDesc,
           price: price,
           weight: weight,
           date: `${startDate} - ${endDate}`,
@@ -132,7 +132,7 @@ export const AddTruck = ({onSetStep, currentStep}: AddTruckProps) => {
           cubProduct: parseInt(cub),
           logPrice: 0,
           distance: freeCar ? 'Свободная' : distance,
-          detail: '',
+          detail: duration,
           time: new Date(),
           ownerCompany: ownerCompany,
           transfer1: transfer,

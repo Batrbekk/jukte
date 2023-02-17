@@ -84,7 +84,7 @@ export const TransportOrder = ({order}: TransportOrderProps) => {
           <div className="flex items-center">
             <PaidIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
-              {order.price} ₸
+              {order.price}
             </Typography>
           </div>
           {order.weight !== "NaN" && (
@@ -118,14 +118,14 @@ export const TransportOrder = ({order}: TransportOrderProps) => {
           <div className="flex items-center">
             <RouteIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
-              {order.distance} км
+              {order.distance}
             </Typography>
           </div>
           {order.detail !== '' && (
             <div className="flex items-center">
               <AccessTimeFilledIcon className="mr-2 fill-[#00abc2]" />
               <Typography variant="body1">
-                {order.description}
+                {order.detail}
               </Typography>
             </div>
           )}
@@ -139,7 +139,7 @@ export const TransportOrder = ({order}: TransportOrderProps) => {
           )}
           <div>
             <Typography>
-              Детали перевозок: {order.product}
+              Детали перевозок: {order.description}
             </Typography>
           </div>
           <div className="mt-4 flex flex-col gap-y-3">

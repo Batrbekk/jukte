@@ -48,7 +48,8 @@ export const OrderDesc = ({
   const [price, setPrice] = useState<string>('');
 
   useEffect(() => {
-
+    getStartDate(moment(new Date()).format('DD/MM/YYYY'));
+    getEndDate(moment(new Date()).format('DD/MM/YYYY'));
   }, []);
 
   const onChangeProduct = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

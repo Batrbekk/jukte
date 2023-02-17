@@ -126,7 +126,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
             {order.ownerCompany}
           </Typography>
         </div>
-        {role !== 'driver' && role === order.ownerRole && (
+        {order.product !== 'noProduct' && (
           <div className="flex items-center">
             <ProductionQuantityLimitsIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
@@ -174,11 +174,11 @@ export const MyOrder = ({order}: MyOrderProps) => {
             {order.distance}
           </Typography>
         </div>
-        {order.description !== '' && (
+        {order.detail && (
           <div className="flex items-center">
             <AccessTimeFilledIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
-              {role === 'driver' ? order.description :order.detail }
+              {order.detail}
             </Typography>
           </div>
         )}
@@ -192,9 +192,7 @@ export const MyOrder = ({order}: MyOrderProps) => {
         )}
         <div>
           <Typography>
-            {role !== order.ownerRole ?
-              `Детали перевозок: ${order.product}` :
-              `Детали перевозок: ${role === 'driver' ? order.product : order.description}`}
+            Детали перевозок: { order.description }
           </Typography>
         </div>
         <div className="mt-4 flex flex-col gap-y-3">
