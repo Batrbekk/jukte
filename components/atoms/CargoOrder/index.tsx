@@ -90,7 +90,7 @@ export const CargoOrder = ({order}: CargoOrderProps) => {
           <div className="flex items-center">
             <PaidIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
-              {order.price} ₸
+              {order.price}
             </Typography>
           </div>
           {order.weight !== "NaN" && (
@@ -116,7 +116,7 @@ export const CargoOrder = ({order}: CargoOrderProps) => {
           <div className="flex items-center">
             <RouteIcon className="mr-2 fill-[#00abc2]" />
             <Typography variant="body1">
-              {order.distance} км
+              {order.distance}
             </Typography>
           </div>
           {order.detail !== '' && (
