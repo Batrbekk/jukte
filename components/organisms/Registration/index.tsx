@@ -111,7 +111,6 @@ export const RegistrationView = () => {
       API_KEY: API_KEY,
     }).then((result: any) => {
       setBiometriaResult(result);
-      console.log(result);
       setBiometria(false);
       setBiometriaView(false);
       setAfterBiometriaView(true);
@@ -172,8 +171,8 @@ export const RegistrationView = () => {
       setOtpCounter(60);
     } else {
       setAfterBiometriaView(false);
-      setSupportModal(true);
-      setErrMessage('В базе Digital ID пользователь не найден, просим проверить вводимые данные, либо обратится в службу поддержки.');
+      setSupportModal(false);
+      setErrMessage('В базе Egov пользователь не найден, просим проверить вводимые данные, либо обратится в службу поддержки.');
     }
   };
 
@@ -203,7 +202,6 @@ export const RegistrationView = () => {
         nameBio = afterVerify.domain.firstName;
         surnameBio = afterVerify.domain.lastName;
       }
-      console.log(nameBio, surnameBio);
       toGetPdf(api, otp, nameBio, surnameBio);
     } else {
       setAfterBiometriaView(false);
@@ -227,7 +225,6 @@ export const RegistrationView = () => {
       const reader = new FileReader();
       reader.readAsDataURL(blob);
       reader.onloadend = function() {
-        console.log(reader.result);
         toRegister(name, surname, reader.result);
       }
     })
@@ -251,9 +248,15 @@ export const RegistrationView = () => {
         iin: iin,
       })
     });
+    const afterRegister = await response.json();
     if (response.ok) {
       setAfterBiometriaView(false);
       setSuccessModal(true);
+    } else {
+      if (afterRegister.message.split(' ')[0] === 'E11000') {
+        setErrMessage('Такой пользователь уже зарегистрирован.');
+      }
+      setAfterBiometriaView(false);
     }
   };
 
