@@ -37,7 +37,10 @@ export const MainView = () => {
     } else if (item === ItemTypeProps.INSURANCE) {
       setLoading(true);
       router.push('https://wa.me/77054051303');
-    } else if (item === ItemTypeProps.PAY) {
+    } else if (item === ItemTypeProps.SPARES) {
+      router.push('https://wa.me/77478269833');
+    }
+    else if (item === ItemTypeProps.PAY) {
       setLoading(true);
       router.push('https://api.paybox.money/payment.php?pg_merchant_id=546728&pg_amount=5000&pg_currency=KZT&pg_description=%D0%A3%D1%81%D0%BB%D1%83%D0%B3%D0%B8+%D1%81%D0%B0%D0%B9%D1%82%D0%B0&pg_salt=vDZOYGx9r3JhaI4o&pg_language=ru&pg_sig=e0ce8a46ebb56822b103c791333b996e');
     } else if (item === ItemTypeProps.EXIT) {

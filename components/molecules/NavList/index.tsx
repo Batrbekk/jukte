@@ -15,6 +15,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import PaidIcon from '@mui/icons-material/Paid';
 import FolderIcon from '@mui/icons-material/Folder';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { ProfileType } from "./type/profileType";
 import { ItemTypeProps } from './type/itemType';
 import { NavListProps } from "./type/props";
@@ -116,7 +117,21 @@ export const NavList = ({role, onSetStep, currentStep}: NavListProps) => {
             <ListItemIcon>
               <GppGoodIcon />
             </ListItemIcon>
-            <ListItemText primary="Застраховать машину" />
+            <ListItemText primary="Застраховать транспорт" />
+          </ListItemButton>
+        )}
+        {role === ProfileType.DRIVER && (
+          <ListItemButton
+            selected={selectedItem === ItemTypeProps.SPARES}
+            onClick={() => {
+              setSelectedItem(ItemTypeProps.SPARES);
+              onSetStep(ItemTypeProps.SPARES);
+            }}
+          >
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Купить автозапчасти" />
           </ListItemButton>
         )}
         {role === ProfileType.DRIVER && (

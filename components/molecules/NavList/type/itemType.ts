@@ -8,6 +8,7 @@ export enum ItemTypeProps {
   SEARCH_CARGO = 'search_cargo',
   ADD_TRUCK = 'add_truck',
   INSURANCE = 'insurance',
+  SPARES = 'buy_spares',
   PAY = 'pay',
   SEARCH_TRUCK = 'search_truck',
   FAQ = 'faq',
