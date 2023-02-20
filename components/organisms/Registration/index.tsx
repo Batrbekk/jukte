@@ -463,6 +463,9 @@ export const RegistrationView = () => {
                   На номер <span className="text-[#00abc2]">{phone}</span> выслан 6-значный код, введите для завершение регистрации.
                 </Typography>
                 <MuiOtpInput
+                  TextFieldsProps={{
+                    type: 'tel',
+                  }}
                   onComplete={onCompleteOtp}
                   value={otp}
                   length={6}
