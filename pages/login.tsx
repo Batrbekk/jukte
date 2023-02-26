@@ -2,10 +2,10 @@ import type { NextPage } from 'next'
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, createTheme, PaletteMode } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
-import { WelcomeView } from "../components/organisms/Welcome";
+import { LoginView } from "../components/organisms/Login";
 import { motion } from "framer-motion"
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   const [theme , setTheme] = useState<PaletteMode>('light');
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   return (
     <div className="bg-white dark:bg-[#0a0a0a]">
       <ThemeProvider theme={darkTheme}>
-        <div className="min-h-screen py-4">
+        <div className="min-h-screen p-4">
           <CssBaseline />
           <motion.main
             variants={variants}
@@ -40,7 +40,7 @@ const Home: NextPage = () => {
             transition={{ type: 'linear' }}
             className=""
           >
-            <WelcomeView />
+            <LoginView />
           </motion.main>
         </div>
       </ThemeProvider>
@@ -48,4 +48,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home;
+export default Login;

@@ -281,7 +281,7 @@ export const RegistrationView = () => {
         </>
       )}
       <div className="mb-2 flex items-center relative">
-        <Fab variant='circular' size="small" className="bg-white dark:bg-[#232323] dark:shadow-none" href="https://jukte.kz/">
+        <Fab variant='circular' size="small" className="bg-white dark:bg-[#232323] dark:shadow-none" href="/">
           <ArrowBackIcon className="fill-[#0a0a0a] dark:fill-white" />
         </Fab>
         <div className="absolute w-full flex justify-center">
